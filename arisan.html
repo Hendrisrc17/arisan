@@ -3,655 +3,1319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ArisanKu — Arisan 7.500.000</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Arisan Chersie ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ============================================================
+// 🔥 KONFIGURASI FIREBASE — GANTI DENGAN MILIKMU
+// ============================================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyBQHZN7jULiYW4QEBYo_h2neNnvWkjp3eQ",
+    authDomain: "arisan-d9a7f.firebaseapp.com",
+    projectId: "arisan-d9a7f",
+    storageBucket: "arisan-d9a7f.firebasestorage.app",
+    messagingSenderId: "297749155020",
+    appId: "1:297749155020:web:32a9cf7d35174588144669",
+    measurementId: "G-TX0P1PBFC6"
+  };
+// ============================================================
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window._db = db;
+window._fns = { collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp, query, orderBy };
+
+// Signal that Firebase is ready
+window._fbReady = true;
+document.dispatchEvent(new Event('fb-ready'));
+</script>
+
 <style>
-:root{--gold:#C9922A;--gold-light:#F5D98B;--gold-dark:#7A5610;--cream:#FBF6EC;--cream-dark:#F0E6D0;--dark:#1A1209;--dark2:#2D2010;--green:#2D6A4F;--green-light:#D8F3DC;--red:#C0392B;--red-light:#FDECEA;--blue:#1A56DB;--blue-light:#EBF5FF;--text:#2D2010;--text-muted:#7A6345;--radius:20px;--shadow:0 8px 32px rgba(201,146,42,0.15);}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden;}
+:root {
+  --rose: #E8527A;
+  --rose-light: #FDEEF3;
+  --rose-dark: #C0395D;
+  --blush: #F9D5E0;
+  --mauve: #9B4D6B;
+  --gold: #D4A853;
+  --gold-light: #FBF0D9;
+  --cream: #FDFAF6;
+  --cream-dark: #F3EDE5;
+  --dark: #1C0A14;
+  --dark2: #2E1422;
+  --text: #2E1422;
+  --text-muted: #8A6070;
+  --white: #FFFFFF;
+  --green: #2E7D5E;
+  --green-light: #D6F0E6;
+  --red: #C0392B;
+  --red-light: #FDECEA;
+  --shadow: 0 8px 32px rgba(232,82,122,0.12);
+  --shadow-lg: 0 20px 60px rgba(232,82,122,0.18);
+  --radius: 22px;
+}
 
-/* LOCK SCREEN */
-#lockScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(145deg,var(--dark) 0%,var(--dark2) 60%,#3D2A0A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;}
-.lock-logo{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--gold-light);margin-bottom:4px;letter-spacing:-1px;}
-.lock-logo span{color:var(--gold);}
-.lock-tagline{font-size:13px;color:rgba(245,217,139,.55);margin-bottom:36px;text-align:center;}
-.lock-icon{width:86px;height:86px;border-radius:50%;background:rgba(201,146,42,.15);border:2px solid rgba(201,146,42,.3);display:flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:28px;}
-.lock-card{background:#fff;border-radius:24px;padding:28px 24px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.4);}
-.lock-tabs{display:flex;gap:8px;margin-bottom:20px;}
-.lock-tab{flex:1;padding:10px;border-radius:12px;border:2px solid var(--cream-dark);background:var(--cream);font-size:13px;font-weight:600;cursor:pointer;color:var(--text-muted);transition:all .2s;font-family:'DM Sans',sans-serif;}
-.lock-tab.active{background:var(--dark);color:var(--gold-light);border-color:var(--dark);}
-.form-input{width:100%;padding:14px 16px;border:2px solid var(--cream-dark);border-radius:14px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--dark);background:#fff;outline:none;transition:border-color .2s;margin-bottom:12px;}
-.form-input:focus{border-color:var(--gold);}
-.form-lbl{font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.4px;}
-.btn-gold{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold) 0%,#E8B44C 100%);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;font-family:'Syne',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(201,146,42,.4);transition:opacity .2s,transform .2s;margin-top:4px;}
-.btn-gold:active{opacity:.9;transform:scale(.99);}
-.lock-err{background:var(--red-light);color:var(--red);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none;border-left:3px solid var(--red);}
-.lock-err.show{display:block;}
-.lock-help{margin-top:14px;text-align:center;font-size:12px;color:var(--text-muted);}
-.lock-help a{color:var(--gold);font-weight:600;text-decoration:none;}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; overflow-x:hidden; }
 
-/* TOP BARS */
-.admin-bar{background:linear-gradient(90deg,var(--gold-dark),var(--gold));padding:9px 16px;display:flex;align-items:center;justify-content:space-between;}
-.admin-bar-left{font-size:12px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px;}
-.admin-bar-right{font-size:11px;color:rgba(255,255,255,.9);cursor:pointer;font-weight:600;background:rgba(255,255,255,.25);padding:5px 14px;border-radius:20px;border:none;font-family:'DM Sans',sans-serif;}
-.guest-bar{background:#2C3E50;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;}
-.guest-bar-left{font-size:12px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;}
-.guest-bar-right{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);border:none;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+/* ===== SETUP SCREEN ===== */
+#setupScreen {
+  position:fixed; inset:0; z-index:2000;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 60%, #4A1030 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:24px; overflow-y:auto;
+}
+.setup-logo { font-family:'Playfair Display',serif; font-size:36px; font-weight:800; color:var(--rose-light); margin-bottom:6px; letter-spacing:-1px; }
+.setup-logo span { color:var(--rose); font-style:italic; }
+.setup-tagline { font-size:13px; color:rgba(249,213,224,.5); margin-bottom:32px; text-align:center; }
+.setup-card { background:#fff; border-radius:24px; padding:28px 24px; width:100%; max-width:400px; box-shadow:0 24px 64px rgba(0,0,0,.45); }
+.setup-step { display:none; }
+.setup-step.active { display:block; }
+.setup-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--dark); margin-bottom:6px; }
+.setup-sub { font-size:13px; color:var(--text-muted); margin-bottom:20px; line-height:1.6; }
+.s-label { font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; display:block; }
+.s-input { width:100%; padding:14px 16px; border:2px solid var(--cream-dark); border-radius:14px; font-size:15px; font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background:#fff; outline:none; transition:border-color .2s; margin-bottom:14px; }
+.s-input:focus { border-color:var(--rose); }
+.s-btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:#fff; border:none; border-radius:14px; font-size:16px; font-weight:700; font-family:'Playfair Display',serif; cursor:pointer; box-shadow:0 4px 20px rgba(232,82,122,.4); margin-top:4px; transition:opacity .2s; }
+.s-btn:active { opacity:.9; }
+.s-btn-ghost { width:100%; padding:14px; background:transparent; color:var(--text-muted); border:2px solid var(--cream-dark); border-radius:14px; font-size:14px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; margin-top:8px; }
+.s-err { background:var(--red-light); color:var(--red); border-radius:10px; padding:10px 14px; font-size:13px; margin-bottom:12px; display:none; border-left:3px solid var(--red); }
+.s-err.show { display:block; }
+.s-info { background:var(--rose-light); border-radius:12px; padding:12px 14px; font-size:12px; color:var(--mauve); line-height:1.6; margin-bottom:16px; }
+.s-tabs { display:flex; gap:8px; margin-bottom:20px; }
+.s-tab { flex:1; padding:10px; border-radius:12px; border:2px solid var(--cream-dark); background:var(--cream); font-size:13px; font-weight:600; cursor:pointer; color:var(--text-muted); transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; }
+.s-tab.active { background:var(--dark); color:var(--rose-light); border-color:var(--dark); }
+.firebase-guide { background:var(--gold-light); border-radius:14px; padding:16px; margin-bottom:16px; }
+.firebase-guide-title { font-size:13px; font-weight:700; color:var(--dark); margin-bottom:8px; }
+.firebase-guide ol { padding-left:18px; }
+.firebase-guide li { font-size:12px; color:var(--text-muted); margin-bottom:4px; line-height:1.5; }
+.firebase-guide code { background:rgba(0,0,0,.08); padding:1px 6px; border-radius:4px; font-size:11px; }
+.step-dots { display:flex; gap:6px; justify-content:center; margin-bottom:20px; }
+.step-dot { width:8px; height:8px; border-radius:50%; background:var(--cream-dark); transition:all .3s; }
+.step-dot.active { background:var(--rose); width:20px; border-radius:4px; }
 
-/* HERO */
-.hero{background:linear-gradient(145deg,var(--dark) 0%,var(--dark2) 50%,#3D2A0A 100%);padding:24px 20px 90px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,146,42,.25) 0%,transparent 70%);pointer-events:none;}
-.hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,146,42,.12) 0%,transparent 70%);pointer-events:none;}
-.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold-light);letter-spacing:-.5px;}
-.logo span{color:var(--gold);}
-.hero-badges{display:flex;gap:8px;align-items:center;}
-.badge-live{background:rgba(201,146,42,.2);border:1px solid rgba(201,146,42,.4);color:var(--gold-light);font-size:11px;font-weight:600;padding:4px 12px;border-radius:30px;display:flex;align-items:center;gap:5px;}
-.badge-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#4CAF50;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-.badge-role{font-size:11px;font-weight:600;padding:4px 12px;border-radius:30px;}
-.badge-admin-role{background:rgba(201,146,42,.35);color:var(--gold-light);border:1px solid rgba(201,146,42,.5);}
-.badge-guest-role{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);}
-.hero-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px;}
-.hero-sub{font-size:13px;color:rgba(245,217,139,.7);margin-bottom:20px;}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(201,146,42,.25);border-radius:14px;padding:14px 12px;text-align:center;}
-.stat-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--gold-light);line-height:1;}
-.stat-lbl{font-size:10px;color:rgba(245,217,139,.6);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
+/* ===== LOCK SCREEN ===== */
+#lockScreen {
+  position:fixed; inset:0; z-index:1000;
+  background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 60%,#4A1030 100%);
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  padding:24px; overflow-y:auto;
+}
+#lockScreen.show { display:flex; }
+.lock-logo { font-family:'Playfair Display',serif; font-size:34px; font-weight:800; color:var(--rose-light); margin-bottom:4px; letter-spacing:-1px; }
+.lock-logo span { color:var(--rose); font-style:italic; }
+.lock-tagline { font-size:13px; color:rgba(249,213,224,.5); margin-bottom:32px; text-align:center; line-height:1.5; }
+.lock-card { background:#fff; border-radius:24px; padding:28px 24px; width:100%; max-width:380px; box-shadow:0 24px 64px rgba(0,0,0,.4); }
+.lock-tabs { display:flex; gap:8px; margin-bottom:20px; }
+.lock-tab { flex:1; padding:10px; border-radius:12px; border:2px solid var(--cream-dark); background:var(--cream); font-size:13px; font-weight:600; cursor:pointer; color:var(--text-muted); transition:all .2s; font-family:'Plus Jakarta Sans',sans-serif; }
+.lock-tab.active { background:var(--dark); color:var(--rose-light); border-color:var(--dark); }
+.lock-err { background:var(--red-light); color:var(--red); border-radius:10px; padding:10px 14px; font-size:13px; margin-bottom:12px; display:none; border-left:3px solid var(--red); }
+.lock-err.show { display:block; }
+.lock-info { background:var(--rose-light); border-radius:12px; padding:12px 14px; font-size:12px; color:var(--mauve); line-height:1.5; margin-top:14px; }
+.lock-help { margin-top:14px; text-align:center; font-size:12px; color:var(--text-muted); }
+.lock-help a { color:var(--rose); font-weight:600; text-decoration:none; }
 
-/* MAIN */
-.main-content{padding:0 16px 100px;margin-top:-55px;position:relative;z-index:10;}
-.section{margin-bottom:24px;}
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.section-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--dark);}
-.section-action{font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
+/* ===== TOP BARS ===== */
+.admin-bar { background:linear-gradient(90deg,var(--rose-dark),var(--rose)); padding:9px 16px; display:flex; align-items:center; justify-content:space-between; }
+.admin-bar-left { font-size:12px; font-weight:600; color:#fff; display:flex; align-items:center; gap:6px; }
+.bar-btn { font-size:11px; color:rgba(255,255,255,.9); cursor:pointer; font-weight:600; background:rgba(255,255,255,.25); padding:5px 14px; border-radius:20px; border:none; font-family:'Plus Jakarta Sans',sans-serif; }
+.guest-bar { background:var(--dark2); padding:8px 16px; display:flex; align-items:center; justify-content:space-between; }
+.guest-bar-left { font-size:12px; color:rgba(255,255,255,.8); display:flex; align-items:center; gap:6px; }
 
-/* INFO CARD */
-.info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-.info-card-top{background:linear-gradient(135deg,var(--gold) 0%,#E8B44C 100%);padding:20px;display:flex;justify-content:space-between;align-items:center;}
-.prize-amount{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#fff;}
-.prize-sub{font-size:12px;color:rgba(255,255,255,.8);margin-top:2px;}
-.prize-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:26px;}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--cream-dark);}
-.info-item{padding:14px 16px;border-right:1px solid var(--cream-dark);border-bottom:1px solid var(--cream-dark);}
-.info-item:nth-child(even){border-right:none;}
-.info-item:nth-last-child(-n+2){border-bottom:none;}
-.info-item-lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;}
-.info-item-val{font-size:15px;font-weight:600;color:var(--dark);margin-top:2px;}
+/* ===== HERO ===== */
+.hero {
+  background:linear-gradient(145deg,var(--dark) 0%,var(--dark2) 55%,#4A1030 100%);
+  padding:24px 20px 110px; position:relative; overflow:hidden;
+}
+.hero::before { content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(232,82,122,.3) 0%,transparent 70%); pointer-events:none; }
+.hero::after { content:''; position:absolute; bottom:-60px; left:-30px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(212,168,83,.15) 0%,transparent 70%); pointer-events:none; }
+.hero-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.logo { font-family:'Playfair Display',serif; font-size:24px; font-weight:800; color:var(--rose-light); letter-spacing:-.5px; }
+.logo em { font-style:italic; color:var(--rose); }
+.hero-badge { background:rgba(232,82,122,.2); border:1px solid rgba(232,82,122,.4); color:var(--rose-light); font-size:11px; font-weight:600; padding:4px 12px; border-radius:30px; display:flex; align-items:center; gap:5px; }
+.hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:#4CAF50; animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.4;} }
+.hero-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:800; color:#fff; line-height:1.2; margin-bottom:4px; }
+.hero-sub { font-size:13px; color:rgba(249,213,224,.65); margin-bottom:20px; }
+.hero-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.stat-card { background:rgba(255,255,255,.07); border:1px solid rgba(232,82,122,.25); border-radius:16px; padding:14px 10px; text-align:center; }
+.stat-val { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--rose-light); line-height:1; }
+.stat-lbl { font-size:10px; color:rgba(249,213,224,.55); margin-top:4px; text-transform:uppercase; letter-spacing:.5px; }
 
-/* JADWAL */
-.jadwal-list{display:flex;flex-direction:column;gap:10px;}
-.jadwal-item{background:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;transition:transform .2s;}
-.jadwal-item:active{transform:scale(.98);}
-.jadwal-item.done{background:var(--green-light);border-left:4px solid var(--green);}
-.jadwal-item.current{background:#FFF9EC;border-left:4px solid var(--gold);box-shadow:0 4px 20px rgba(201,146,42,.2);}
-.jadwal-item.waiting{border-left:4px solid var(--cream-dark);opacity:.75;}
-.jadwal-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;flex-shrink:0;}
-.done .jadwal-num{background:var(--green);color:#fff;}
-.current .jadwal-num{background:var(--gold);color:#fff;}
-.waiting .jadwal-num{background:var(--cream-dark);color:var(--text-muted);}
-.jadwal-info{flex:1;min-width:0;}
-.jadwal-name{font-size:15px;font-weight:600;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.jadwal-date{font-size:12px;color:var(--text-muted);margin-top:1px;}
-.jadwal-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.done .jadwal-status{background:var(--green);color:#fff;}
-.current .jadwal-status{background:var(--gold);color:#fff;}
-.waiting .jadwal-status{background:var(--cream-dark);color:var(--text-muted);}
+/* ===== MAIN ===== */
+.main-content { padding:0 16px 100px; margin-top:-70px; position:relative; z-index:10; }
+.section { margin-bottom:24px; }
+.section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--dark); }
+.section-action { font-size:13px; font-weight:600; color:var(--rose); cursor:pointer; background:none; border:none; font-family:'Plus Jakarta Sans',sans-serif; }
 
-/* MEMBER */
-.member-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.member-card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:center;position:relative;cursor:pointer;}
-.member-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;margin:0 auto 10px;}
-.member-name{font-size:14px;font-weight:600;}
-.member-giliran{font-size:11px;color:var(--text-muted);margin-top:2px;}
-.member-badge{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;}
+/* ===== ARISAN CARDS (Dashboard) ===== */
+.arisan-cards { display:flex; flex-direction:column; gap:14px; }
+.arisan-card {
+  background:#fff; border-radius:20px; overflow:hidden;
+  box-shadow:0 4px 20px rgba(232,82,122,.1);
+  cursor:pointer; transition:transform .2s, box-shadow .2s;
+  position:relative;
+}
+.arisan-card:active { transform:scale(.98); }
+.arisan-card-top { padding:20px; display:flex; justify-content:space-between; align-items:center; }
+.arisan-card-amount { font-family:'Playfair Display',serif; font-size:26px; font-weight:800; color:#fff; }
+.arisan-card-name { font-size:13px; color:rgba(255,255,255,.75); margin-top:2px; }
+.arisan-card-icon { width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+.arisan-card-footer { padding:12px 20px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,.06); }
+.arisan-card-stat { font-size:12px; color:rgba(255,255,255,.7); display:flex; align-items:center; gap:4px; }
+.arisan-card-open { font-size:12px; font-weight:700; color:#fff; background:rgba(255,255,255,.2); padding:6px 14px; border-radius:20px; }
+.arisan-card-new { background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); border:2px dashed rgba(232,82,122,.4); display:flex; align-items:center; justify-content:center; gap:12px; padding:24px 20px; cursor:pointer; transition:all .2s; }
+.arisan-card-new:active { transform:scale(.98); }
+.arisan-card-new-icon { width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; font-size:22px; }
+.arisan-card-new-text { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#fff; }
+.arisan-card-new-sub { font-size:12px; color:rgba(255,255,255,.7); margin-top:2px; }
 
-/* PAYMENT */
-.payment-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-.payment-header{padding:16px 18px;background:var(--dark);color:var(--gold-light);}
-.payment-header-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
-.payment-sub{font-size:12px;color:rgba(245,217,139,.6);margin-top:2px;}
-.payment-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--cream-dark);gap:12px;cursor:pointer;}
-.payment-row:last-child{border-bottom:none;}
-.payment-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
-.payment-lunas{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+/* ===== ARISAN DETAIL VIEW ===== */
+#arisanView { display:none; }
+.back-btn { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--rose); cursor:pointer; background:none; border:none; font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:16px; padding:0; }
+.detail-hero { background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); border-radius:20px; padding:22px; margin-bottom:18px; position:relative; overflow:hidden; }
+.detail-hero::before { content:''; position:absolute; right:-30px; top:-30px; width:150px; height:150px; border-radius:50%; background:rgba(255,255,255,.1); }
+.detail-amount { font-family:'Playfair Display',serif; font-size:34px; font-weight:800; color:#fff; }
+.detail-sub { font-size:13px; color:rgba(255,255,255,.75); margin-top:2px; margin-bottom:16px; }
+.detail-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.detail-stat { background:rgba(255,255,255,.15); border-radius:12px; padding:12px; text-align:center; }
+.detail-stat-val { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; }
+.detail-stat-lbl { font-size:10px; color:rgba(255,255,255,.65); margin-top:2px; text-transform:uppercase; letter-spacing:.4px; }
 
-/* PROGRESS */
-.progress-section{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
-.progress-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;}
-.progress-bar-wrap{background:var(--cream-dark);border-radius:50px;height:12px;overflow:hidden;margin-bottom:8px;}
-.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold) 0%,#E8B44C 100%);border-radius:50px;transition:width 1s ease;}
-.progress-info{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);}
+/* ===== INFO GRID ===== */
+.info-card { background:#fff; border-radius:20px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:16px; }
+.info-grid { display:grid; grid-template-columns:1fr 1fr; }
+.info-item { padding:14px 16px; border-right:1px solid var(--cream-dark); border-bottom:1px solid var(--cream-dark); }
+.info-item:nth-child(even) { border-right:none; }
+.info-item:nth-last-child(-n+2) { border-bottom:none; }
+.info-item-lbl { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.4px; }
+.info-item-val { font-size:15px; font-weight:700; color:var(--dark); margin-top:3px; }
 
-/* REKAP */
-.rekap-card{background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 100%);border-radius:var(--radius);padding:20px;margin-bottom:14px;}
-.rekap-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold-light);margin-bottom:14px;}
-.rekap-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-.rekap-row:last-child{border-bottom:none;}
-.rekap-lbl{font-size:13px;color:rgba(255,255,255,.6);}
-.rekap-val{font-size:14px;font-weight:600;color:var(--gold-light);}
+/* ===== PROGRESS ===== */
+.progress-card { background:#fff; border-radius:20px; padding:18px; box-shadow:var(--shadow); margin-bottom:16px; }
+.progress-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; margin-bottom:14px; }
+.progress-bar-wrap { background:var(--cream-dark); border-radius:50px; height:10px; overflow:hidden; margin-bottom:8px; }
+.progress-bar { height:100%; background:linear-gradient(90deg,var(--rose) 0%,var(--rose-dark) 100%); border-radius:50px; transition:width 1s ease; }
+.progress-info { display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); }
 
-/* ACCESS BANNER */
-.access-banner{background:linear-gradient(135deg,#1A3A5C,#1e4976);border-radius:var(--radius);padding:20px;margin-bottom:24px;}
-.access-banner-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#93C5FD;margin-bottom:6px;}
-.access-banner-sub{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px;line-height:1.5;}
-.btn-request{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:#fff;color:#1A3A5C;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+/* ===== JADWAL ===== */
+.jadwal-list { display:flex; flex-direction:column; gap:10px; }
+.jadwal-item { background:#fff; border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:14px; box-shadow:0 2px 12px rgba(0,0,0,.05); cursor:pointer; transition:transform .2s; }
+.jadwal-item:active { transform:scale(.98); }
+.jadwal-item.done { background:var(--green-light); border-left:4px solid var(--green); }
+.jadwal-item.current { background:#FFF5F8; border-left:4px solid var(--rose); box-shadow:0 4px 20px rgba(232,82,122,.15); }
+.jadwal-item.waiting { border-left:4px solid var(--cream-dark); opacity:.75; }
+.jadwal-num { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:15px; font-weight:700; flex-shrink:0; }
+.done .jadwal-num { background:var(--green); color:#fff; }
+.current .jadwal-num { background:var(--rose); color:#fff; }
+.waiting .jadwal-num { background:var(--cream-dark); color:var(--text-muted); }
+.jadwal-info { flex:1; min-width:0; }
+.jadwal-name { font-size:15px; font-weight:600; color:var(--dark); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.jadwal-date { font-size:12px; color:var(--text-muted); margin-top:1px; }
+.jadwal-status { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap; }
+.done .jadwal-status { background:var(--green); color:#fff; }
+.current .jadwal-status { background:var(--rose); color:#fff; }
+.waiting .jadwal-status { background:var(--cream-dark); color:var(--text-muted); }
 
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(26,18,9,.7);backdrop-filter:blur(4px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
-.modal-overlay.active{display:flex;}
-.modal{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding:24px 20px 40px;animation:slideUp .3s cubic-bezier(.34,1.56,.64,1);}
-@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--cream-dark);margin:0 auto 20px;}
-.modal-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px;}
-.modal-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px;}
-.form-group{margin-bottom:16px;}
-.form-label-dark{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;display:block;}
-.btn-primary{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold) 0%,#E8B44C 100%);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;font-family:'Syne',sans-serif;cursor:pointer;margin-top:8px;box-shadow:0 4px 16px rgba(201,146,42,.4);}
-.btn-secondary{width:100%;padding:14px;background:var(--cream);color:var(--dark);border:2px solid var(--cream-dark);border-radius:14px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:8px;}
+/* ===== MEMBERS ===== */
+.member-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.member-card { background:#fff; border-radius:16px; padding:16px; box-shadow:0 2px 12px rgba(0,0,0,.05); text-align:center; position:relative; cursor:pointer; }
+.member-avatar { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin:0 auto 10px; }
+.member-name { font-size:14px; font-weight:600; }
+.member-sub { font-size:11px; color:var(--text-muted); margin-top:2px; }
+.member-badge-pos { position:absolute; top:10px; right:10px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; }
 
-/* NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--dark);display:flex;padding:10px 0 20px;z-index:50;border-top:1px solid rgba(201,146,42,.2);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;border:none;background:none;padding:4px;}
-.nav-icon{font-size:20px;}
-.nav-label{font-size:10px;font-weight:500;color:rgba(245,217,139,.5);}
-.nav-item.active .nav-label{color:var(--gold-light);}
-.nav-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:2px;opacity:0;}
-.nav-item.active .nav-dot{opacity:1;}
+/* ===== PAYMENTS ===== */
+.payment-card { background:#fff; border-radius:20px; box-shadow:var(--shadow); overflow:hidden; }
+.payment-header { padding:16px 18px; background:var(--dark); }
+.payment-header-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--rose-light); }
+.payment-header-sub { font-size:12px; color:rgba(249,213,224,.5); margin-top:2px; }
+.payment-row { display:flex; align-items:center; padding:12px 16px; border-bottom:1px solid var(--cream-dark); gap:12px; cursor:pointer; }
+.payment-row:last-child { border-bottom:none; }
+.payment-avatar { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; flex-shrink:0; }
+.payment-lunas { font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; }
 
-/* FAB */
-.fab{position:fixed;bottom:80px;right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold) 0%,#E8B44C 100%);box-shadow:0 6px 20px rgba(201,146,42,.5);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;z-index:49;border:none;transition:transform .3s;}
-.fab:active{transform:scale(.92);}
+/* ===== REKAP ===== */
+.rekap-card { background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 100%); border-radius:20px; padding:20px; margin-bottom:16px; }
+.rekap-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--rose-light); margin-bottom:14px; }
+.rekap-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+.rekap-row:last-child { border-bottom:none; }
+.rekap-lbl { font-size:13px; color:rgba(255,255,255,.55); }
+.rekap-val { font-size:14px; font-weight:700; color:var(--rose-light); }
 
-/* TOAST */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--dark);color:var(--gold-light);padding:12px 24px;border-radius:30px;font-size:14px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:300;opacity:0;transition:opacity .3s,top .3s;white-space:nowrap;pointer-events:none;}
-.toast.show{opacity:1;top:30px;}
+/* ===== ACCESS BANNER ===== */
+.access-banner { background:linear-gradient(135deg,#1A3A5C,#1e4976); border-radius:20px; padding:20px; margin-bottom:16px; }
+.access-banner-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#93C5FD; margin-bottom:6px; }
+.access-banner-sub { font-size:13px; color:rgba(255,255,255,.65); margin-bottom:14px; line-height:1.5; }
 
-.tab-content{display:none;}
-.tab-content.active{display:block;}
-.ro-hint{background:rgba(201,146,42,.08);border:1px dashed rgba(201,146,42,.3);border-radius:12px;padding:10px 14px;font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:16px;}
-.empty{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:14px;}
+/* ===== NAVBAR ===== */
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:var(--dark); display:flex; padding:10px 0 20px; z-index:50; border-top:1px solid rgba(232,82,122,.2); }
+.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; border:none; background:none; padding:4px; }
+.nav-icon { font-size:20px; }
+.nav-label { font-size:10px; font-weight:500; color:rgba(249,213,224,.45); }
+.nav-item.active .nav-label { color:var(--rose-light); }
+.nav-dot { width:4px; height:4px; border-radius:50%; background:var(--rose); margin-top:2px; opacity:0; }
+.nav-item.active .nav-dot { opacity:1; }
+
+/* ===== FAB ===== */
+.fab { position:fixed; bottom:80px; right:20px; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); box-shadow:0 6px 24px rgba(232,82,122,.5); display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; z-index:49; border:none; transition:transform .3s; }
+.fab:active { transform:scale(.92); }
+
+/* ===== MODALS ===== */
+.modal-overlay { position:fixed; inset:0; background:rgba(28,10,20,.75); backdrop-filter:blur(5px); z-index:200; display:none; align-items:flex-end; justify-content:center; }
+.modal-overlay.active { display:flex; }
+.modal { background:#fff; border-radius:26px 26px 0 0; width:100%; max-width:520px; max-height:92vh; overflow-y:auto; padding:24px 20px 44px; animation:slideUp .35s cubic-bezier(.34,1.56,.64,1); }
+@keyframes slideUp { from{transform:translateY(100%);} to{transform:translateY(0);} }
+.modal-handle { width:36px; height:4px; border-radius:2px; background:var(--cream-dark); margin:0 auto 20px; }
+.modal-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:6px; }
+.modal-sub { font-size:13px; color:var(--text-muted); margin-bottom:22px; }
+.form-group { margin-bottom:16px; }
+.form-label { font-size:13px; font-weight:600; color:var(--text); margin-bottom:6px; display:block; }
+.form-input { width:100%; padding:14px 16px; border:2px solid var(--cream-dark); border-radius:14px; font-size:15px; font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background:#fff; outline:none; transition:border-color .2s; }
+.form-input:focus { border-color:var(--rose); }
+.btn-rose { width:100%; padding:16px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:#fff; border:none; border-radius:14px; font-size:16px; font-weight:700; font-family:'Playfair Display',serif; cursor:pointer; margin-top:8px; box-shadow:0 4px 16px rgba(232,82,122,.4); }
+.btn-ghost { width:100%; padding:14px; background:var(--cream); color:var(--dark); border:2px solid var(--cream-dark); border-radius:14px; font-size:15px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; margin-top:8px; }
+.btn-danger { width:100%; padding:14px; background:var(--red-light); color:var(--red); border:none; border-radius:14px; font-size:14px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; margin-top:8px; }
+.btn-request { display:inline-flex; align-items:center; gap:6px; padding:12px 20px; background:#fff; color:#1A3A5C; border:none; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; }
+
+/* ===== TOAST ===== */
+.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--dark); color:var(--rose-light); padding:12px 24px; border-radius:30px; font-size:14px; font-weight:500; box-shadow:0 8px 24px rgba(0,0,0,.3); z-index:400; opacity:0; transition:opacity .3s, top .3s; white-space:nowrap; pointer-events:none; max-width:90vw; }
+.toast.show { opacity:1; top:28px; }
+
+/* ===== MISC ===== */
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.ro-hint { background:var(--rose-light); border:1px dashed rgba(232,82,122,.3); border-radius:12px; padding:10px 14px; font-size:12px; color:var(--mauve); text-align:center; margin-bottom:16px; }
+.empty { text-align:center; padding:40px 20px; color:var(--text-muted); font-size:14px; }
+.loading { text-align:center; padding:30px; color:var(--text-muted); font-size:14px; }
+.color-rose { background:linear-gradient(135deg,#E8527A,#C0395D); }
+.color-mauve { background:linear-gradient(135deg,#9B4D6B,#7A3A55); }
+.color-gold { background:linear-gradient(135deg,#D4A853,#B8883A); }
+.color-blue { background:linear-gradient(135deg,#4A7FC1,#2E5F9E); }
+.color-green { background:linear-gradient(135deg,#4CAF7D,#2E7D5E); }
+.color-purple { background:linear-gradient(135deg,#8E6DC6,#6B4EA8); }
+
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-thumb { background:var(--cream-dark); border-radius:2px; }
 </style>
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-  <div class="lock-logo">Arisan<span>Ku</span></div>
-  <div class="lock-tagline">Arisan 7.500.000 • Kelola dengan mudah & aman</div>
-  <div class="lock-icon">🏆</div>
-  <div class="lock-card">
-    <div class="lock-tabs">
-      <button class="lock-tab active" id="tabTamuBtn" onclick="switchLockTab('tamu')">👁️ Lihat Saja</button>
-      <button class="lock-tab" id="tabAdminBtn" onclick="switchLockTab('admin')">🔐 Admin</button>
+<!-- ===== SETUP SCREEN (First Time) ===== -->
+<div id="setupScreen">
+  <div class="setup-logo">Arisan <span>Chersie</span> ✨</div>
+  <div class="setup-tagline">Web arisan pintar • Data sinkron semua HP</div>
+  <div class="setup-card">
+    <div class="step-dots">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
     </div>
 
-    <div id="panelTamu">
-      <div style="text-align:center;padding:4px 0 14px;">
-        <div style="font-size:14px;color:var(--text-muted);line-height:1.7;">Akses sebagai <strong>tamu</strong> untuk melihat data arisan dan mencatat pembayaran namamu sendiri.</div>
+    <!-- STEP 1: Pilihan Role -->
+    <div class="setup-step active" id="step1">
+      <div class="setup-title">Selamat Datang! 👋</div>
+      <div class="setup-sub">Kamu masuk sebagai apa?</div>
+      <div class="s-tabs">
+        <button class="s-tab active" id="roleOwnerBtn" onclick="selectRole('owner')">👑 Owner</button>
+        <button class="s-tab" id="roleGuestBtn" onclick="selectRole('guest')">👁️ Tamu</button>
       </div>
-      <div class="form-group">
-        <label class="form-lbl">Nama Kamu</label>
-        <input class="form-input" id="inputNamaTamu" placeholder="Masukkan namamu" type="text" onkeydown="if(event.key==='Enter')masukTamu()">
+      <div id="ownerSection">
+        <div class="s-info">👑 <strong>Owner (Chersie)</strong> — Bisa buka arisan baru, edit semua data, kelola anggota. Login dengan email & password rahasia.</div>
+        <div class="s-err" id="ownerErr"></div>
+        <div class="form-group">
+          <label class="s-label">Email Admin</label>
+          <input class="s-input" id="ownerEmail" placeholder="hendri78gusiin@gmail.com" type="email">
+        </div>
+        <div class="form-group">
+          <label class="s-label">Password</label>
+          <input class="s-input" id="ownerPass" placeholder="Password rahasia" type="password" onkeydown="if(event.key==='Enter')loginOwner()">
+        </div>
+        <button class="s-btn" onclick="loginOwner()">Masuk sebagai Owner 👑</button>
       </div>
-      <button class="btn-gold" onclick="masukTamu()">Masuk sebagai Tamu →</button>
-      <div style="margin-top:14px;padding:12px 14px;background:var(--blue-light);border-radius:12px;font-size:12px;color:#1A3A5C;line-height:1.5;">
-        🔒 Tamu hanya bisa <strong>lihat</strong> data &amp; <strong>tandai bayar diri sendiri</strong>. Untuk edit data hubungi Admin.
+      <div id="guestSection" style="display:none;">
+        <div class="s-info">👁️ <strong>Tamu</strong> — Bisa lihat data arisan & tandai bayar namamu sendiri. Tidak bisa edit data.</div>
+        <div class="form-group">
+          <label class="s-label">Namamu</label>
+          <input class="s-input" id="guestName" placeholder="Masukkan namamu" type="text" onkeydown="if(event.key==='Enter')loginGuest()">
+        </div>
+        <button class="s-btn" onclick="loginGuest()">Masuk sebagai Tamu →</button>
       </div>
     </div>
 
-    <div id="panelAdmin" style="display:none;">
-      <div class="lock-err" id="adminErr">❌ Email atau password salah!</div>
-      <div class="form-group">
-        <label class="form-lbl">Email Admin</label>
-        <input class="form-input" id="inputEmail" placeholder="hendri78gusiin@gmail.com" type="email" autocomplete="off">
+    <!-- STEP 2: Firebase Setup (Owner only, first time) -->
+    <div class="setup-step" id="step2">
+      <div class="setup-title">🔥 Setup Firebase</div>
+      <div class="setup-sub">Tempelkan Firebase Config milikmu agar data sinkron ke semua HP.</div>
+      <div class="firebase-guide">
+        <div class="firebase-guide-title">📋 Cara Dapatkan Config:</div>
+        <ol>
+          <li>Buka <strong>console.firebase.google.com</strong></li>
+          <li>Buat project baru / pilih project yang ada</li>
+          <li>Klik ⚙️ Settings → <strong>Project Settings</strong></li>
+          <li>Scroll ke bawah → <strong>Your apps</strong> → tambah Web App (<code>&lt;/&gt;</code>)</li>
+          <li>Copy <code>firebaseConfig</code> yang muncul</li>
+          <li>Di Firestore → <strong>Create Database</strong> → <code>test mode</code></li>
+        </ol>
       </div>
       <div class="form-group">
-        <label class="form-lbl">Password</label>
-        <input class="form-input" id="inputPass" placeholder="Password rahasia" type="password" autocomplete="off" onkeydown="if(event.key==='Enter')loginAdmin()">
+        <label class="s-label">API Key</label>
+        <input class="s-input" id="fbApiKey" placeholder="AIzaSy..." type="text">
       </div>
-      <button class="btn-gold" onclick="loginAdmin()">Masuk Admin 🔐</button>
-      <div class="lock-help">Lupa password? <a href="mailto:hendri78gusiin@gmail.com">Hubungi Admin</a></div>
-      <div style="margin-top:14px;padding:12px 14px;background:rgba(201,146,42,.08);border-radius:12px;font-size:12px;color:var(--text-muted);line-height:1.5;text-align:center;">
-        👑 Admin: <strong>hendri78gusiin@gmail.com</strong>
+      <div class="form-group">
+        <label class="s-label">Project ID</label>
+        <input class="s-input" id="fbProjectId" placeholder="my-arisan-app" type="text">
       </div>
+      <div class="form-group">
+        <label class="s-label">App ID</label>
+        <input class="s-input" id="fbAppId" placeholder="1:123:web:abc..." type="text">
+      </div>
+      <div class="s-err" id="fbErr"></div>
+      <button class="s-btn" onclick="saveFirebaseConfig()">Simpan & Lanjut 🔥</button>
+      <button class="s-btn-ghost" onclick="skipFirebase()">Skip (Gunakan Config di File)</button>
+    </div>
+
+    <!-- STEP 3: Siap -->
+    <div class="setup-step" id="step3">
+      <div style="text-align:center;padding:10px 0 20px;">
+        <div style="font-size:52px;margin-bottom:14px;">🎉</div>
+        <div class="setup-title" style="text-align:center;">Siap Dipakai!</div>
+        <div class="setup-sub" style="text-align:center;">Web arisan Chersie sudah siap. Bagikan link ini ke semua anggota agar bisa akses bersama.</div>
+      </div>
+      <button class="s-btn" onclick="enterApp()">Masuk ke Dashboard ✨</button>
     </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ===== APP ===== -->
 <div id="appWrapper" style="display:none;">
 
+  <!-- Top Bar -->
   <div class="admin-bar" id="adminBar" style="display:none;">
-    <div class="admin-bar-left">👑 Admin — hendri78gusiin@gmail.com</div>
-    <button class="admin-bar-right" onclick="logout()">Keluar</button>
+    <div class="admin-bar-left">👑 Owner — hendri78gusiin@gmail.com</div>
+    <div style="display:flex;gap:6px;">
+      <button class="bar-btn" onclick="logout()">Keluar</button>
+    </div>
   </div>
   <div class="guest-bar" id="guestBar" style="display:none;">
-    <div class="guest-bar-left">👁️ Tamu — <span id="guestBarName" style="font-weight:700;color:var(--gold-light);"></span></div>
-    <button class="guest-bar-right" onclick="logout()">Ganti Akun</button>
+    <div class="guest-bar-left">👁️ Tamu — <span id="guestBarName" style="font-weight:700;color:var(--rose-light);"></span></div>
+    <button class="bar-btn" onclick="logout()">Ganti Akun</button>
   </div>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-top">
-      <div class="logo">Arisan<span>Ku</span></div>
-      <div class="hero-badges">
-        <div class="badge-live">Aktif</div>
-        <div class="badge-role" id="heroBadgeRole"></div>
-      </div>
+      <div class="logo">Arisan <em>Chersie</em> ✨</div>
+      <div class="hero-badge" id="heroBadge">Aktif</div>
     </div>
-    <div class="hero-title">Arisan 7.500.000</div>
-    <div class="hero-sub">Kena setiap tanggal 05 • Mulai Mei 2026</div>
-    <div class="hero-stats">
-      <div class="stat-card"><div class="stat-val" id="statTotal">15</div><div class="stat-lbl">Anggota</div></div>
-      <div class="stat-card"><div class="stat-val" id="statDone">8</div><div class="stat-lbl">Sudah Kena</div></div>
-      <div class="stat-card"><div class="stat-val" id="statSisa">7</div><div class="stat-lbl">Belum Kena</div></div>
+    <div class="hero-title" id="heroTitle">Dashboard Arisan</div>
+    <div class="hero-sub" id="heroSub">Kelola semua arisan dalam satu tempat</div>
+    <div class="hero-stats" id="heroStats">
+      <div class="stat-card"><div class="stat-val" id="statArisan">0</div><div class="stat-lbl">Total Arisan</div></div>
+      <div class="stat-card"><div class="stat-val" id="statAnggota">0</div><div class="stat-lbl">Anggota</div></div>
+      <div class="stat-card"><div class="stat-val" id="statActive">0</div><div class="stat-lbl">Aktif</div></div>
     </div>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="main-content">
 
-    <!-- BERANDA -->
+    <!-- ===== BERANDA ===== -->
     <div class="tab-content active" id="tab-beranda">
-      <div class="section">
+
+      <!-- Dashboard: Daftar Arisan -->
+      <div id="dashboardView">
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">💎 Arisan Saya</div>
+            <button class="section-action" id="btnNewArisan" onclick="openNewArisan()" style="display:none;">+ Buka Baru</button>
+          </div>
+          <div class="arisan-cards" id="arisanCards">
+            <div class="loading">⏳ Memuat data arisan...</div>
+          </div>
+          <!-- Tombol buka arisan baru (owner only) -->
+          <div id="newArisanCard" style="display:none;margin-top:14px;">
+            <div class="arisan-card arisan-card-new" onclick="openNewArisan()">
+              <div class="arisan-card-new-icon">✨</div>
+              <div>
+                <div class="arisan-card-new-text">Buka Arisan Baru</div>
+                <div class="arisan-card-new-sub">Tambah grup arisan baru</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail Arisan (sembunyikan dashboard) -->
+      <div id="arisanView">
+        <button class="back-btn" onclick="backToDashboard()">← Kembali</button>
+        <div class="detail-hero" id="detailHero">
+          <div class="detail-amount" id="detailAmount">Rp 0</div>
+          <div class="detail-sub" id="detailSub2">Loading...</div>
+          <div class="detail-stats">
+            <div class="detail-stat"><div class="detail-stat-val" id="dStatTotal">0</div><div class="detail-stat-lbl">Anggota</div></div>
+            <div class="detail-stat"><div class="detail-stat-val" id="dStatDone">0</div><div class="detail-stat-lbl">Sudah Kena</div></div>
+            <div class="detail-stat"><div class="detail-stat-val" id="dStatSisa">0</div><div class="detail-stat-lbl">Belum</div></div>
+          </div>
+        </div>
+
+        <!-- Info Grid -->
         <div class="info-card">
-          <div class="info-card-top">
-            <div><div class="prize-amount" id="prizeDisplay">Rp 7.500.000</div><div class="prize-sub">Hadiah per giliran</div></div>
-            <div class="prize-icon">🏆</div>
-          </div>
           <div class="info-grid">
-            <div class="info-item"><div class="info-item-lbl">Iuran Bulanan</div><div class="info-item-val" id="infoIuran">Rp 500.000</div></div>
-            <div class="info-item"><div class="info-item-lbl">Cicilan Mingguan</div><div class="info-item-val" id="infoCicil">Rp 125.000</div></div>
-            <div class="info-item"><div class="info-item-lbl">Tanggal Kena</div><div class="info-item-val" id="infoTgl">05 setiap bulan</div></div>
-            <div class="info-item"><div class="info-item-lbl">Upah Admin</div><div class="info-item-val" id="infoAdminFee">Rp 100.000</div></div>
+            <div class="info-item"><div class="info-item-lbl">Iuran/Bulan</div><div class="info-item-val" id="dInfoIuran">-</div></div>
+            <div class="info-item"><div class="info-item-lbl">Cicilan/Minggu</div><div class="info-item-val" id="dInfoCicil">-</div></div>
+            <div class="info-item"><div class="info-item-lbl">Tanggal Kena</div><div class="info-item-val" id="dInfoTgl">-</div></div>
+            <div class="info-item"><div class="info-item-lbl">Upah Admin</div><div class="info-item-val" id="dInfoAdmin">-</div></div>
           </div>
         </div>
-      </div>
-      <div class="section">
-        <div class="progress-section">
+
+        <!-- Progress -->
+        <div class="progress-card">
           <div class="progress-title">📊 Progress Putaran</div>
-          <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:53%"></div></div>
-          <div class="progress-info"><span id="progressDone">8 sudah kena</span><span id="progressPct">53%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" id="dProgressBar" style="width:0%"></div></div>
+          <div class="progress-info"><span id="dProgressDone">-</span><span id="dProgressPct">0%</span></div>
         </div>
-      </div>
-      <div class="section">
+
+        <!-- Next Up -->
         <div class="section-header"><div class="section-title">🎯 Giliran Berikutnya</div></div>
-        <div id="nextUpCard"></div>
-      </div>
-      <div class="access-banner" id="accessBanner" style="display:none;">
-        <div class="access-banner-title">🔐 Butuh Akses Edit?</div>
-        <div class="access-banner-sub">Hanya Admin yang bisa mengubah data arisan. Kirim permintaan izin ke Admin sekarang.</div>
-        <button class="btn-request" onclick="kirimRequest()">📧 Minta Izin Edit ke Admin</button>
-      </div>
-      <div class="section">
-        <div class="rekap-card">
-          <div class="rekap-title">💰 Rekap Keuangan</div>
-          <div class="rekap-row"><span class="rekap-lbl">Total Terkumpul (est.)</span><span class="rekap-val" id="rekapTerkumpul">Rp 0</span></div>
-          <div class="rekap-row"><span class="rekap-lbl">Sudah Dibagikan</span><span class="rekap-val" id="rekapDibagi">Rp 0</span></div>
-          <div class="rekap-row"><span class="rekap-lbl">Saldo Kas (est.)</span><span class="rekap-val" id="rekapSaldo">Rp 0</span></div>
+        <div id="dNextUp" style="margin-bottom:16px;"></div>
+
+        <!-- Access Banner (guest) -->
+        <div class="access-banner" id="dAccessBanner" style="display:none;margin-bottom:16px;">
+          <div class="access-banner-title">🔐 Butuh Akses Edit?</div>
+          <div class="access-banner-sub">Hanya Owner yang dapat mengubah data. Kirim permintaan izin ke Owner sekarang.</div>
+          <button class="btn-request" onclick="kirimRequest()">📧 Minta Izin ke Owner</button>
+        </div>
+
+        <!-- Rekap -->
+        <div class="rekap-card" id="dRekap"></div>
+
+        <!-- Admin actions -->
+        <div id="dAdminActions" style="display:none;margin-bottom:10px;">
+          <button onclick="openEditArisan()" style="width:100%;padding:14px;background:#fff;color:var(--rose);border:2px solid var(--rose);border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:8px;">⚙️ Edit Info Arisan</button>
+          <button onclick="hapusArisan()" style="width:100%;padding:12px;background:var(--red-light);color:var(--red);border:none;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">🗑️ Hapus Arisan Ini</button>
         </div>
       </div>
     </div>
 
-    <!-- JADWAL -->
+    <!-- ===== JADWAL ===== -->
     <div class="tab-content" id="tab-jadwal">
       <div class="section">
         <div class="section-header">
           <div class="section-title">📅 Jadwal Arisan</div>
           <button class="section-action" id="btnTambahJadwal" onclick="openAddJadwal()" style="display:none;">+ Tambah</button>
         </div>
-        <div class="ro-hint" id="hintJadwal" style="display:none;">👁️ Mode lihat — hanya Admin yang bisa mengubah jadwal</div>
-        <div class="jadwal-list" id="jadwalList"></div>
+        <div class="ro-hint" id="hintJadwal" style="display:none;">👁️ Mode lihat — hanya Owner yang bisa mengubah jadwal</div>
+        <div id="jadwalPicker" style="margin-bottom:14px;display:none;"></div>
+        <div class="jadwal-list" id="jadwalList"><div class="loading">⏳ Pilih arisan terlebih dahulu...</div></div>
       </div>
     </div>
 
-    <!-- ANGGOTA -->
+    <!-- ===== ANGGOTA ===== -->
     <div class="tab-content" id="tab-anggota">
       <div class="section">
         <div class="section-header">
           <div class="section-title">👥 Daftar Anggota</div>
           <button class="section-action" id="btnTambahAnggota" onclick="openAddAnggota()" style="display:none;">+ Tambah</button>
         </div>
-        <div class="ro-hint" id="hintAnggota" style="display:none;">👁️ Mode lihat — hanya Admin yang bisa menambah anggota</div>
-        <div class="member-grid" id="memberGrid"></div>
+        <div class="ro-hint" id="hintAnggota" style="display:none;">👁️ Mode lihat — hanya Owner yang bisa mengelola anggota</div>
+        <div id="anggotaPicker" style="margin-bottom:14px;display:none;"></div>
+        <div class="member-grid" id="memberGrid"><div class="loading" style="grid-column:1/-1;">⏳ Pilih arisan terlebih dahulu...</div></div>
       </div>
     </div>
 
-    <!-- BAYAR -->
+    <!-- ===== BAYAR ===== -->
     <div class="tab-content" id="tab-bayar">
       <div class="section">
-        <div class="section-header"><div class="section-title">💳 Pembayaran Bulan Ini</div></div>
+        <div class="section-header"><div class="section-title">💳 Pembayaran</div></div>
         <div class="ro-hint" id="hintBayar" style="display:none;">💡 Kamu hanya bisa tandai bayar namamu sendiri</div>
+        <div id="bayarPicker" style="margin-bottom:14px;display:none;"></div>
         <div class="payment-card">
-          <div class="payment-header"><div class="payment-header-title">Status Iuran</div><div class="payment-sub" id="paymentMonth"></div></div>
-          <div class="payment-list" id="paymentList"></div>
+          <div class="payment-header">
+            <div class="payment-header-title">Status Iuran Bulan Ini</div>
+            <div class="payment-header-sub" id="paymentMonth">-</div>
+          </div>
+          <div class="payment-list" id="paymentList"><div class="loading" style="padding:20px;text-align:center;">⏳ Pilih arisan terlebih dahulu...</div></div>
         </div>
       </div>
     </div>
 
-  </div>
+  </div><!-- /main-content -->
 
+  <!-- NAVBAR -->
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('beranda',this)"><span class="nav-icon">🏠</span><span class="nav-label">Beranda</span><div class="nav-dot"></div></button>
-    <button class="nav-item" onclick="switchTab('jadwal',this)"><span class="nav-icon">📅</span><span class="nav-label">Jadwal</span><div class="nav-dot"></div></button>
-    <button class="nav-item" onclick="switchTab('anggota',this)"><span class="nav-icon">👥</span><span class="nav-label">Anggota</span><div class="nav-dot"></div></button>
-    <button class="nav-item" onclick="switchTab('bayar',this)"><span class="nav-icon">💳</span><span class="nav-label">Bayar</span><div class="nav-dot"></div></button>
+    <button class="nav-item active" onclick="switchTab('beranda',this)">
+      <span class="nav-icon">🏠</span><span class="nav-label">Beranda</span><div class="nav-dot"></div>
+    </button>
+    <button class="nav-item" onclick="switchTab('jadwal',this)">
+      <span class="nav-icon">📅</span><span class="nav-label">Jadwal</span><div class="nav-dot"></div>
+    </button>
+    <button class="nav-item" onclick="switchTab('anggota',this)">
+      <span class="nav-icon">👥</span><span class="nav-label">Anggota</span><div class="nav-dot"></div>
+    </button>
+    <button class="nav-item" onclick="switchTab('bayar',this)">
+      <span class="nav-icon">💳</span><span class="nav-label">Bayar</span><div class="nav-dot"></div>
+    </button>
   </nav>
 
-  <button class="fab" id="fabBtn" style="display:none;" onclick="openQuickAction()">+</button>
+  <button class="fab" id="fabBtn" style="display:none;" onclick="fabAction()">+</button>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- MODAL: Jadwal -->
+<!-- ===== MODALS ===== -->
+
+<!-- Modal: Arisan Baru -->
+<div class="modal-overlay" id="modalNewArisan">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="mArisanTitle">Buka Arisan Baru</div>
+    <div class="modal-sub">Isi detail arisan yang akan dibuka</div>
+    <div class="form-group"><label class="form-label">Nama Arisan</label><input class="form-input" id="inArisanNama" placeholder="Contoh: Arisan Bulanan RT" type="text"></div>
+    <div class="form-group"><label class="form-label">Total Hadiah (Rp)</label><input class="form-input" id="inArisanHadiah" placeholder="7500000" type="number"></div>
+    <div class="form-group"><label class="form-label">Iuran per Bulan (Rp)</label><input class="form-input" id="inArisanIuran" placeholder="500000" type="number"></div>
+    <div class="form-group"><label class="form-label">Cicilan Mingguan (Rp)</label><input class="form-input" id="inArisanCicil" placeholder="125000" type="number"></div>
+    <div class="form-group"><label class="form-label">Tanggal Kena (1-31)</label><input class="form-input" id="inArisanTgl" placeholder="5" type="number" min="1" max="31"></div>
+    <div class="form-group"><label class="form-label">Upah Admin (Rp)</label><input class="form-input" id="inArisanAdmin" placeholder="100000" type="number"></div>
+    <div class="form-group"><label class="form-label">Warna Tema</label>
+      <select class="form-input" id="inArisanWarna">
+        <option value="color-rose">🌸 Merah Muda (Default)</option>
+        <option value="color-mauve">💜 Mauve</option>
+        <option value="color-gold">✨ Gold</option>
+        <option value="color-blue">💙 Biru</option>
+        <option value="color-green">💚 Hijau</option>
+        <option value="color-purple">🟣 Ungu</option>
+      </select>
+    </div>
+    <button class="btn-rose" onclick="saveArisan()">Simpan Arisan ✓</button>
+    <button class="btn-ghost" onclick="closeModal('modalNewArisan')">Batal</button>
+  </div>
+</div>
+
+<!-- Modal: Tambah Jadwal -->
 <div class="modal-overlay" id="modalJadwal">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title" id="mJadwalTitle">Tambah Giliran</div>
-    <div class="modal-sub">Hanya Admin yang dapat mengubah data ini</div>
-    <div class="form-group"><label class="form-label-dark">Nama Penerima</label><input class="form-input" id="inputNama" placeholder="Contoh: Amanda" type="text"></div>
-    <div class="form-group"><label class="form-label-dark">Bulan & Tahun</label><input class="form-input" id="inputBulan" placeholder="Contoh: Juni 2026" type="text"></div>
-    <div class="form-group"><label class="form-label-dark">Status</label>
-      <select class="form-input" id="inputStatus">
+    <div class="modal-sub">Hanya Owner yang dapat mengubah jadwal</div>
+    <div class="form-group"><label class="form-label">Nama Penerima</label><input class="form-input" id="inNama" placeholder="Contoh: Amanda" type="text"></div>
+    <div class="form-group"><label class="form-label">Bulan & Tahun</label><input class="form-input" id="inBulan" placeholder="Contoh: Juni 2026" type="text"></div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-input" id="inStatus">
         <option value="waiting">⏳ Menunggu</option>
         <option value="current">🎯 Giliran Sekarang</option>
         <option value="done">✓ Sudah Kena</option>
       </select>
     </div>
-    <button class="btn-primary" onclick="saveJadwal()">Simpan ✓</button>
-    <button class="btn-secondary" onclick="closeModal('modalJadwal')">Batal</button>
+    <button class="btn-rose" onclick="saveJadwal()">Simpan ✓</button>
+    <button class="btn-ghost" onclick="closeModal('modalJadwal')">Batal</button>
   </div>
 </div>
 
-<!-- MODAL: Anggota -->
+<!-- Modal: Tambah Anggota -->
 <div class="modal-overlay" id="modalAnggota">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">Tambah Anggota</div>
-    <div class="modal-sub">Hanya Admin yang dapat menambah anggota</div>
-    <div class="form-group"><label class="form-label-dark">Nama Anggota</label><input class="form-input" id="inputAnggotaNama" placeholder="Nama lengkap" type="text"></div>
-    <div class="form-group"><label class="form-label-dark">No. HP (opsional)</label><input class="form-input" id="inputAnggotaHp" placeholder="0812-xxxx-xxxx" type="tel"></div>
-    <button class="btn-primary" onclick="saveAnggota()">Tambah ✓</button>
-    <button class="btn-secondary" onclick="closeModal('modalAnggota')">Batal</button>
+    <div class="modal-sub">Daftarkan anggota arisan baru</div>
+    <div class="form-group"><label class="form-label">Nama Anggota</label><input class="form-input" id="inAnggotaNama" placeholder="Nama lengkap" type="text"></div>
+    <div class="form-group"><label class="form-label">No. HP (opsional)</label><input class="form-input" id="inAnggotaHp" placeholder="0812-xxxx-xxxx" type="tel"></div>
+    <button class="btn-rose" onclick="saveAnggota()">Tambah ✓</button>
+    <button class="btn-ghost" onclick="closeModal('modalAnggota')">Batal</button>
   </div>
 </div>
 
-<!-- MODAL: Bayar -->
+<!-- Modal: Bayar -->
 <div class="modal-overlay" id="modalBayar">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">Tandai Pembayaran</div>
-    <div class="modal-sub" id="mBayarSub"></div>
-    <div class="form-group"><label class="form-label-dark">Jumlah Dibayar</label><input class="form-input" id="inputJumlah" placeholder="500000" type="number"></div>
-    <div class="form-group"><label class="form-label-dark">Metode Bayar</label>
-      <select class="form-input" id="inputMetode">
+    <div class="modal-sub" id="mBayarSub">Konfirmasi pembayaran iuran</div>
+    <div class="form-group"><label class="form-label">Jumlah Dibayar (Rp)</label><input class="form-input" id="inJumlah" placeholder="500000" type="number"></div>
+    <div class="form-group"><label class="form-label">Metode Bayar</label>
+      <select class="form-input" id="inMetode">
         <option>Transfer Bank</option><option>Tunai</option><option>QRIS</option><option>GoPay</option><option>OVO</option><option>Dana</option>
       </select>
     </div>
-    <button class="btn-primary" onclick="konfirmasiBayar()">Konfirmasi Lunas ✓</button>
-    <button class="btn-secondary" onclick="closeModal('modalBayar')">Batal</button>
+    <button class="btn-rose" onclick="konfirmasiBayar()">Konfirmasi Lunas ✓</button>
+    <button class="btn-ghost" onclick="closeModal('modalBayar')">Batal</button>
   </div>
 </div>
 
-<!-- MODAL: Detail -->
+<!-- Modal: Detail Jadwal/Anggota -->
 <div class="modal-overlay" id="modalDetail">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title" id="detailNama"></div>
-    <div class="modal-sub" id="detailSub"></div>
+    <div class="modal-sub" id="detailSubM"></div>
     <div id="detailBody"></div>
-    <button class="btn-secondary" onclick="closeModal('modalDetail')">Tutup</button>
+    <button class="btn-ghost" onclick="closeModal('modalDetail')">Tutup</button>
   </div>
 </div>
 
-<!-- MODAL: Akses Ditolak -->
+<!-- Modal: Akses Ditolak -->
 <div class="modal-overlay" id="modalDitolak">
   <div class="modal">
     <div class="modal-handle"></div>
     <div style="text-align:center;padding:10px 0 24px;">
       <div style="font-size:54px;margin-bottom:14px;">🔒</div>
-      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px;">Akses Terbatas</div>
-      <div style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:20px;">Fitur ini hanya untuk <strong>Admin</strong>.<br>Kirim permintaan izin ke Admin arisan.</div>
-      <button onclick="kirimRequest();closeModal('modalDitolak')" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--dark);color:var(--gold-light);border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">📧 Minta Izin Edit ke Admin</button>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;">Akses Terbatas</div>
+      <div style="font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">Fitur ini hanya untuk <strong>Owner Chersie</strong>.<br>Kirim permintaan izin ke Owner.</div>
+      <button onclick="kirimRequest();closeModal('modalDitolak')" style="padding:13px 28px;background:var(--dark);color:var(--rose-light);border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">📧 Minta Izin ke Owner</button>
     </div>
-    <button class="btn-secondary" onclick="closeModal('modalDitolak')">Tutup</button>
+    <button class="btn-ghost" onclick="closeModal('modalDitolak')">Tutup</button>
   </div>
 </div>
 
 <script>
-// ===== CONFIG ADMIN =====
+// =========================================================
+// CONFIG
+// =========================================================
 const ADMIN_EMAIL = 'hendri78gusiin@gmail.com';
-// Password: Arisan@Hendri2026 — ubah string ini sesuai password yang diinginkan
-const ADMIN_PASS = btoa('Arisan@Hendri2026' + '_secret_salt_2026');
+const ADMIN_PASS_HASH = btoa('Arisan@Chersie2026_s3cr3t');
 
-let session = { role: null, nama: '' };
+// =========================================================
+// STATE
+// =========================================================
+let session = { role: null, nama: '' }; // role: 'owner' | 'guest'
+let currentArisanId = null;
+let currentArisanData = null;
+let allArisan = [];
+let unsubListeners = [];
+let editJadwalId = null;
+let editBayarNama = null;
+let editArisanMode = false;
+let selectedRole = 'owner';
 
-// ===== DATA =====
-let D = {
-  jadwal:[
-    {id:1,nama:"Amanda",bulan:"Juni 2026",status:"done",kunci:true},
-    {id:2,nama:"Sendi",bulan:"Juli 2026",status:"done",kunci:true},
-    {id:3,nama:"Nova",bulan:"Agustus 2026",status:"done",kunci:true},
-    {id:4,nama:"Neza",bulan:"September 2026",status:"done",kunci:true},
-    {id:5,nama:"Serly Namang",bulan:"Oktober 2026",status:"done",kunci:true},
-    {id:6,nama:"Suci L",bulan:"November 2026",status:"done",kunci:true},
-    {id:7,nama:"Intan",bulan:"Desember 2026",status:"done",kunci:true},
-    {id:8,nama:"Hendri",bulan:"Januari 2027",status:"done",kunci:true},
-    {id:9,nama:"",bulan:"Februari 2027",status:"waiting",kunci:false},
-    {id:10,nama:"",bulan:"Maret 2027",status:"waiting",kunci:false},
-    {id:11,nama:"",bulan:"April 2027",status:"waiting",kunci:false},
-    {id:12,nama:"",bulan:"Mei 2027",status:"waiting",kunci:false},
-    {id:13,nama:"",bulan:"Juni 2027",status:"waiting",kunci:false},
-    {id:14,nama:"",bulan:"Juli 2027",status:"waiting",kunci:false},
-    {id:15,nama:"",bulan:"Agustus 2027",status:"waiting",kunci:false},
-  ],
-  anggota:[
-    {id:1,nama:"Amanda",hp:""},
-    {id:2,nama:"Sendi",hp:""},
-    {id:3,nama:"Nova",hp:""},
-    {id:4,nama:"Neza",hp:""},
-    {id:5,nama:"Serly Namang",hp:""},
-    {id:6,nama:"Suci L",hp:""},
-    {id:7,nama:"Intan",hp:""},
-    {id:8,nama:"Hendri",hp:""},
-  ],
-  pembayaran:{},
-  nextId:16,
-  editJadwalId:null,
-  editBayarNama:null,
-  prize:7500000,
-  iuran:500000,
-  cicilan:125000,
-  tgl:"05",
-  adminFee:100000,
-};
+// =========================================================
+// HELPERS
+// =========================================================
+const COLORS_LIST = ['#E8527A','#9B4D6B','#D4A853','#4A7FC1','#4CAF7D','#8E6DC6','#C0392B','#2471A3','#D35400','#1A5276'];
+const gc = s => { if(!s) return '#888'; let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))%COLORS_LIST.length; return COLORS_LIST[Math.abs(h)]; };
+const ini = n => { if(!n) return '?'; const p=n.trim().split(' '); return p.length===1?p[0][0].toUpperCase():(p[0][0]+p[p.length-1][0]).toUpperCase(); };
+const rp = n => 'Rp ' + Number(n).toLocaleString('id-ID');
+const curMonth = () => { const d=new Date(); return ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][d.getMonth()]+' '+d.getFullYear(); };
+const isOwner = () => session.role === 'owner';
 
-const COLORS=['#C9922A','#2D6A4F','#C0392B','#8E44AD','#2471A3','#D35400','#1A5276','#784212','#1B4F72','#154360'];
-const gc=s=>{if(!s)return'#888';let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%COLORS.length;return COLORS[Math.abs(h)];};
-const ini=n=>{if(!n)return'?';const p=n.trim().split(' ');return p.length===1?p[0][0].toUpperCase():(p[0][0]+p[p.length-1][0]).toUpperCase();};
-const rp=n=>'Rp '+Number(n).toLocaleString('id-ID');
-const curMonth=()=>{const d=new Date();return['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][d.getMonth()]+' '+d.getFullYear();};
+function requireOwner() { if(!isOwner()){openModal('modalDitolak');return false;} return true; }
 
-function save(){try{localStorage.setItem('arisanku3',JSON.stringify(D));}catch(e){}}
-function load(){try{const s=localStorage.getItem('arisanku3');if(s)Object.assign(D,JSON.parse(s));}catch(e){}}
-
-// ===== AUTH =====
-function switchLockTab(t){
-  document.getElementById('tabTamuBtn').classList.toggle('active',t==='tamu');
-  document.getElementById('tabAdminBtn').classList.toggle('active',t==='admin');
-  document.getElementById('panelTamu').style.display=t==='tamu'?'block':'none';
-  document.getElementById('panelAdmin').style.display=t==='admin'?'block':'none';
+let toastTimer;
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-function masukTamu(){
-  const nama=document.getElementById('inputNamaTamu').value.trim();
-  if(!nama){showToast('Masukkan namamu dulu!');return;}
-  session={role:'guest',nama};
-  boot();
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('active'); });
+});
+
+// =========================================================
+// FIREBASE HELPERS
+// =========================================================
+function db() { return window._db; }
+const F = () => window._fns;
+
+function waitForFb() {
+  return new Promise(resolve => {
+    if(window._fbReady) { resolve(); return; }
+    document.addEventListener('fb-ready', () => resolve(), {once:true});
+    setTimeout(() => resolve(), 5000); // timeout fallback
+  });
 }
 
-function loginAdmin(){
-  const email=document.getElementById('inputEmail').value.trim().toLowerCase();
-  const pass=document.getElementById('inputPass').value;
-  const err=document.getElementById('adminErr');
-  const hash=btoa(pass+'_secret_salt_2026');
-  if(email!==ADMIN_EMAIL||hash!==ADMIN_PASS){
-    err.classList.add('show');
-    document.getElementById('inputPass').value='';
-    return;
+// =========================================================
+// SETUP / AUTH FLOW
+// =========================================================
+function selectRole(r) {
+  selectedRole = r;
+  document.getElementById('roleOwnerBtn').classList.toggle('active', r==='owner');
+  document.getElementById('roleGuestBtn').classList.toggle('active', r==='guest');
+  document.getElementById('ownerSection').style.display = r==='owner' ? 'block' : 'none';
+  document.getElementById('guestSection').style.display = r==='guest' ? 'block' : 'none';
+}
+
+function loginOwner() {
+  const email = document.getElementById('ownerEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('ownerPass').value;
+  const err = document.getElementById('ownerErr');
+  const hash = btoa(pass+'_s3cr3t');
+  if(email !== ADMIN_EMAIL || hash !== ADMIN_PASS_HASH) {
+    err.textContent='❌ Email atau password salah!'; err.classList.add('show'); return;
   }
   err.classList.remove('show');
-  session={role:'admin',nama:'Hendri'};
-  boot();
+  session = { role:'owner', nama:'Chersie' };
+  saveSession();
+  // Check if firebase is configured
+  if(!window._fbReady || document.getElementById('setupScreen').style.display !== 'none') {
+    goStep(2);
+  } else {
+    goStep(3);
+  }
 }
 
-function logout(){
+function loginGuest() {
+  const nama = document.getElementById('guestName').value.trim();
+  if(!nama) { showToast('Masukkan namamu!'); return; }
+  session = { role:'guest', nama };
+  saveSession();
+  goStep(3);
+}
+
+function goStep(n) {
+  document.querySelectorAll('.setup-step').forEach((s,i) => s.classList.toggle('active', i===n-1));
+  document.querySelectorAll('.step-dot').forEach((d,i) => d.classList.toggle('active', i===n-1));
+}
+
+function saveFirebaseConfig() {
+  const apiKey = document.getElementById('fbApiKey').value.trim();
+  const projectId = document.getElementById('fbProjectId').value.trim();
+  const appId = document.getElementById('fbAppId').value.trim();
+  const err = document.getElementById('fbErr');
+  if(!apiKey || !projectId || !appId) { err.textContent='Isi semua field Firebase!'; err.classList.add('show'); return; }
+  try {
+    localStorage.setItem('fb_cfg', JSON.stringify({apiKey,projectId,appId}));
+    showToast('Config Firebase disimpan! Reload halaman untuk menerapkan 🔥');
+    err.classList.remove('show');
+    goStep(3);
+  } catch(e) {
+    err.textContent='Gagal menyimpan config.'; err.classList.add('show');
+  }
+}
+
+function skipFirebase() { goStep(3); }
+
+function enterApp() {
+  document.getElementById('setupScreen').style.display='none';
+  bootApp();
+}
+
+function logout() {
   session={role:null,nama:''};
-  try{sessionStorage.removeItem('ak_sess');}catch(e){}
+  try{sessionStorage.removeItem('ac_sess');}catch(e){}
+  unsubListeners.forEach(u=>u());
+  unsubListeners=[];
+  currentArisanId=null; currentArisanData=null; allArisan=[];
   document.getElementById('appWrapper').style.display='none';
-  document.getElementById('lockScreen').style.display='flex';
-  document.getElementById('inputPass').value='';
-  document.getElementById('inputNamaTamu').value='';
-  document.getElementById('adminErr').classList.remove('show');
+  document.getElementById('setupScreen').style.display='flex';
+  goStep(1);
+  document.getElementById('ownerPass').value='';
+  document.getElementById('ownerErr').classList.remove('show');
 }
 
-const isAdmin=()=>session.role==='admin';
-
-function requireAdmin(){
-  if(!isAdmin()){openModal('modalDitolak');return false;}
-  return true;
+function saveSession() {
+  try { sessionStorage.setItem('ac_sess', JSON.stringify(session)); } catch(e) {}
 }
 
-function boot(){
-  try{sessionStorage.setItem('ak_sess',JSON.stringify(session));}catch(e){}
-  document.getElementById('lockScreen').style.display='none';
+// =========================================================
+// BOOT APP
+// =========================================================
+function bootApp() {
   document.getElementById('appWrapper').style.display='block';
   applyRole();
-  renderAll();
+  loadArisan();
 }
 
-function applyRole(){
-  const admin=isAdmin();
-  document.getElementById('adminBar').style.display=admin?'flex':'none';
-  document.getElementById('guestBar').style.display=admin?'none':'flex';
-  if(!admin)document.getElementById('guestBarName').textContent=session.nama;
-  const br=document.getElementById('heroBadgeRole');
-  if(admin){br.textContent='👑 Admin';br.className='badge-role badge-admin-role';}
-  else{br.textContent='👁️ Tamu';br.className='badge-role badge-guest-role';}
-  document.getElementById('btnTambahJadwal').style.display=admin?'':'none';
-  document.getElementById('btnTambahAnggota').style.display=admin?'':'none';
-  document.getElementById('fabBtn').style.display=admin?'flex':'none';
-  document.getElementById('hintJadwal').style.display=admin?'none':'';
-  document.getElementById('hintAnggota').style.display=admin?'none':'';
-  document.getElementById('hintBayar').style.display=admin?'none':'';
-  document.getElementById('accessBanner').style.display=admin?'none':'block';
+function applyRole() {
+  const owner = isOwner();
+  document.getElementById('adminBar').style.display = owner ? 'flex' : 'none';
+  document.getElementById('guestBar').style.display = owner ? 'none' : 'flex';
+  if(!owner) document.getElementById('guestBarName').textContent = session.nama;
+  document.getElementById('btnTambahJadwal').style.display = owner ? '' : 'none';
+  document.getElementById('btnTambahAnggota').style.display = owner ? '' : 'none';
+  document.getElementById('fabBtn').style.display = owner ? 'flex' : 'none';
+  document.getElementById('hintJadwal').style.display = owner ? 'none' : '';
+  document.getElementById('hintAnggota').style.display = owner ? 'none' : '';
+  document.getElementById('hintBayar').style.display = owner ? 'none' : '';
+  document.getElementById('newArisanCard').style.display = owner ? 'block' : 'none';
+  document.getElementById('btnNewArisan').style.display = owner ? '' : 'none';
 }
 
-// ===== TABS =====
-function switchTab(name,btn){
+// =========================================================
+// TABS
+// =========================================================
+function switchTab(name, btn) {
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  renderAll();
+  if(name==='jadwal') renderJadwalTab();
+  if(name==='anggota') renderAnggotaTab();
+  if(name==='bayar') renderBayarTab();
+  if(name==='beranda') { document.getElementById('heroTitle').textContent='Dashboard Arisan'; document.getElementById('heroSub').textContent='Kelola semua arisan dalam satu tempat'; }
 }
 
-// ===== RENDER =====
-function renderAll(){
-  const done=D.jadwal.filter(j=>j.status==='done').length;
-  const total=D.jadwal.length;
-  document.getElementById('statTotal').textContent=total;
-  document.getElementById('statDone').textContent=done;
-  document.getElementById('statSisa').textContent=total-done;
-  document.getElementById('progressBar').style.width=Math.round(done/total*100)+'%';
-  document.getElementById('progressDone').textContent=done+' sudah kena';
-  document.getElementById('progressPct').textContent=Math.round(done/total*100)+'%';
-  document.getElementById('prizeDisplay').textContent=rp(D.prize);
-  document.getElementById('infoIuran').textContent=rp(D.iuran);
-  document.getElementById('infoCicil').textContent=rp(D.cicilan);
-  document.getElementById('infoTgl').textContent=D.tgl+' setiap bulan';
-  document.getElementById('infoAdminFee').textContent=rp(D.adminFee);
-  document.getElementById('rekapTerkumpul').textContent=rp(D.iuran*total);
-  document.getElementById('rekapDibagi').textContent=rp(D.prize*done);
-  document.getElementById('rekapSaldo').textContent=rp(D.iuran*total-D.prize*done);
-  renderNextUp();renderJadwal();renderMembers();renderPayments();
+function fabAction() {
+  const active = document.querySelector('.tab-content.active');
+  const id = active ? active.id : '';
+  if(id==='tab-jadwal') openAddJadwal();
+  else if(id==='tab-anggota') openAddAnggota();
+  else openNewArisan();
 }
 
-function renderNextUp(){
-  const next=D.jadwal.find(j=>j.status==='current')||D.jadwal.find(j=>j.status==='waiting');
-  const el=document.getElementById('nextUpCard');
-  if(!next){el.innerHTML='<div class="empty">🎉 Semua sudah kena!</div>';return;}
-  const col=gc(next.nama||'?');
-  el.innerHTML=`<div class="info-card" style="border-left:4px solid ${col};">
-    <div class="info-card-top" style="background:linear-gradient(135deg,${col} 0%,${col}cc 100%);">
-      <div>
-        <div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:4px;">🎯 Giliran ke-${next.id}</div>
-        <div class="prize-amount">${next.nama||'Belum ditentukan'}</div>
-        <div class="prize-sub">${next.bulan} • Tanggal ${D.tgl}</div>
+// =========================================================
+// ARISAN CRUD
+// =========================================================
+async function loadArisan() {
+  await waitForFb();
+  if(!db()) { renderOffline(); return; }
+  try {
+    const { collection, onSnapshot, query, orderBy } = F();
+    const q = query(collection(db(), 'arisan'), orderBy('createdAt','desc'));
+    const unsub = onSnapshot(q, snap => {
+      allArisan = snap.docs.map(d => ({id:d.id,...d.data()}));
+      renderDashboard();
+      updateHeroStats();
+      if(currentArisanId) {
+        const a = allArisan.find(x=>x.id===currentArisanId);
+        if(a) { currentArisanData=a; renderArisanDetail(); }
+      }
+    });
+    unsubListeners.push(unsub);
+  } catch(e) { console.error(e); renderOffline(); }
+}
+
+function renderOffline() {
+  document.getElementById('arisanCards').innerHTML = `
+    <div style="background:#FFF5F8;border-radius:16px;padding:20px;text-align:center;">
+      <div style="font-size:40px;margin-bottom:12px;">🔌</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px;">Firebase Belum Terhubung</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:16px;">Ganti konfigurasi Firebase di bagian atas file HTML, atau isi config di halaman setup.</div>
+      <div style="font-size:12px;color:var(--mauve);background:var(--rose-light);border-radius:10px;padding:10px;">💡 Cari tulisan <strong>GANTI_API_KEY</strong> di file HTML dan ganti dengan config Firebase milikmu.</div>
+    </div>`;
+}
+
+function renderDashboard() {
+  const el = document.getElementById('arisanCards');
+  if(!allArisan.length) {
+    el.innerHTML = `<div class="empty"><div style="font-size:48px;margin-bottom:12px;">💎</div>${isOwner()?'Belum ada arisan. Buka arisan baru!':'Belum ada arisan aktif.'}</div>`;
+    return;
+  }
+  el.innerHTML = allArisan.map(a => {
+    const done = (a.jadwal||[]).filter(j=>j.status==='done').length;
+    const total = (a.jadwal||[]).length;
+    const pct = total ? Math.round(done/total*100) : 0;
+    return `<div class="arisan-card" onclick="openArisanDetail('${a.id}')">
+      <div class="arisan-card-top ${a.warna||'color-rose'}">
+        <div>
+          <div class="arisan-card-amount">${rp(a.hadiah||0)}</div>
+          <div class="arisan-card-name">${a.nama||'Arisan'}</div>
+        </div>
+        <div class="arisan-card-icon">💎</div>
       </div>
-      <div class="prize-icon" style="font-size:32px;">${next.nama?'🔑':'❓'}</div>
-    </div>
-    <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:13px;color:var(--text-muted);">Hadiah diterima</span>
-      <span style="font-size:16px;font-weight:700;color:var(--green);">${rp(D.prize)}</span>
-    </div>
-  </div>`;
+      <div class="arisan-card-footer ${a.warna||'color-rose'}">
+        <div class="arisan-card-stat">👥 ${total} anggota • ${done}/${total} kena</div>
+        <div class="arisan-card-open">Buka →</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function renderJadwal(){
-  const el=document.getElementById('jadwalList');
-  if(!el)return;
-  el.innerHTML=D.jadwal.map(j=>{
-    const lbl=j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Sekarang':'⏳ Menunggu';
-    return `<div class="jadwal-item ${j.status}" onclick="showDetailJadwal(${j.id})">
-      <div class="jadwal-num">${j.id}</div>
+function updateHeroStats() {
+  document.getElementById('statArisan').textContent = allArisan.length;
+  const totalAnggota = allArisan.reduce((s,a)=>(s+(a.anggota||[]).length),0);
+  document.getElementById('statAnggota').textContent = totalAnggota;
+  document.getElementById('statActive').textContent = allArisan.filter(a=>(a.jadwal||[]).some(j=>j.status==='waiting'||j.status==='current')).length;
+}
+
+function openArisanDetail(id) {
+  const a = allArisan.find(x=>x.id===id);
+  if(!a) return;
+  currentArisanId = id; currentArisanData = a;
+  document.getElementById('dashboardView').style.display='none';
+  document.getElementById('arisanView').style.display='block';
+  document.getElementById('heroTitle').textContent = a.nama||'Arisan';
+  document.getElementById('heroSub').textContent = rp(a.hadiah||0)+' • '+curMonth();
+  renderArisanDetail();
+  renderJadwalTab();
+  renderAnggotaTab();
+  renderBayarTab();
+}
+
+function backToDashboard() {
+  currentArisanId = null; currentArisanData = null;
+  document.getElementById('dashboardView').style.display='block';
+  document.getElementById('arisanView').style.display='none';
+  document.getElementById('heroTitle').textContent='Dashboard Arisan';
+  document.getElementById('heroSub').textContent='Kelola semua arisan dalam satu tempat';
+}
+
+function renderArisanDetail() {
+  const a = currentArisanData;
+  if(!a) return;
+  const jadwal = a.jadwal||[];
+  const done = jadwal.filter(j=>j.status==='done').length;
+  const total = jadwal.length;
+  const pct = total ? Math.round(done/total*100) : 0;
+
+  document.getElementById('detailAmount').textContent = rp(a.hadiah||0);
+  document.getElementById('detailSub2').textContent = (a.nama||'Arisan')+' • Tgl '+( a.tgl||'?')+' setiap bulan';
+  document.getElementById('dStatTotal').textContent = total;
+  document.getElementById('dStatDone').textContent = done;
+  document.getElementById('dStatSisa').textContent = total-done;
+  document.getElementById('dInfoIuran').textContent = rp(a.iuran||0);
+  document.getElementById('dInfoCicil').textContent = rp(a.cicilan||0);
+  document.getElementById('dInfoTgl').textContent = (a.tgl||'?')+' setiap bulan';
+  document.getElementById('dInfoAdmin').textContent = rp(a.adminFee||0);
+  document.getElementById('dProgressBar').style.width = pct+'%';
+  document.getElementById('dProgressDone').textContent = done+' sudah kena';
+  document.getElementById('dProgressPct').textContent = pct+'%';
+  document.getElementById('dAccessBanner').style.display = isOwner()?'none':'block';
+  document.getElementById('dAdminActions').style.display = isOwner()?'block':'none';
+
+  // Next up
+  const next = jadwal.find(j=>j.status==='current') || jadwal.find(j=>j.status==='waiting');
+  const nu = document.getElementById('dNextUp');
+  if(!next) { nu.innerHTML='<div class="empty">🎉 Semua sudah kena!</div>'; }
+  else {
+    const col = gc(next.nama||'?');
+    nu.innerHTML=`<div class="info-card" style="border-left:4px solid ${col};">
+      <div style="background:linear-gradient(135deg,${col},${col}bb);padding:18px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);margin-bottom:4px;">🎯 Giliran ke-${next.urutan||'?'}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:#fff;">${next.nama||'Belum ditentukan'}</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.75);">${next.bulan||''} • Tgl ${a.tgl||'?'}</div>
+        </div>
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:28px;">${next.nama?'🔑':'❓'}</div>
+      </div>
+      <div style="padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--text-muted);">Hadiah diterima</span>
+        <span style="font-size:16px;font-weight:700;color:var(--green);">${rp(a.hadiah||0)}</span>
+      </div>
+    </div>`;
+  }
+
+  // Rekap
+  const terkumpul = (a.iuran||0)*total;
+  const dibagi = (a.hadiah||0)*done;
+  document.getElementById('dRekap').innerHTML=`
+    <div class="rekap-title">💰 Rekap Keuangan</div>
+    <div class="rekap-row"><span class="rekap-lbl">Total Terkumpul (est.)</span><span class="rekap-val">${rp(terkumpul)}</span></div>
+    <div class="rekap-row"><span class="rekap-lbl">Sudah Dibagikan</span><span class="rekap-val">${rp(dibagi)}</span></div>
+    <div class="rekap-row"><span class="rekap-lbl">Saldo Kas (est.)</span><span class="rekap-val">${rp(terkumpul-dibagi)}</span></div>`;
+}
+
+// ===== SAVE / NEW ARISAN =====
+function openNewArisan() {
+  if(!requireOwner()) return;
+  editArisanMode = false;
+  document.getElementById('mArisanTitle').textContent='Buka Arisan Baru';
+  document.getElementById('inArisanNama').value='';
+  document.getElementById('inArisanHadiah').value='';
+  document.getElementById('inArisanIuran').value='';
+  document.getElementById('inArisanCicil').value='';
+  document.getElementById('inArisanTgl').value='';
+  document.getElementById('inArisanAdmin').value='';
+  document.getElementById('inArisanWarna').value='color-rose';
+  openModal('modalNewArisan');
+}
+
+function openEditArisan() {
+  if(!requireOwner()||!currentArisanData) return;
+  editArisanMode = true;
+  const a = currentArisanData;
+  document.getElementById('mArisanTitle').textContent='Edit Arisan';
+  document.getElementById('inArisanNama').value=a.nama||'';
+  document.getElementById('inArisanHadiah').value=a.hadiah||'';
+  document.getElementById('inArisanIuran').value=a.iuran||'';
+  document.getElementById('inArisanCicil').value=a.cicilan||'';
+  document.getElementById('inArisanTgl').value=a.tgl||'';
+  document.getElementById('inArisanAdmin').value=a.adminFee||'';
+  document.getElementById('inArisanWarna').value=a.warna||'color-rose';
+  openModal('modalNewArisan');
+}
+
+async function saveArisan() {
+  if(!requireOwner()) return;
+  const nama = document.getElementById('inArisanNama').value.trim();
+  const hadiah = parseInt(document.getElementById('inArisanHadiah').value)||0;
+  const iuran = parseInt(document.getElementById('inArisanIuran').value)||0;
+  const cicilan = parseInt(document.getElementById('inArisanCicil').value)||0;
+  const tgl = document.getElementById('inArisanTgl').value.trim()||'05';
+  const adminFee = parseInt(document.getElementById('inArisanAdmin').value)||0;
+  const warna = document.getElementById('inArisanWarna').value;
+  if(!nama||!hadiah) { showToast('Nama dan hadiah wajib diisi!'); return; }
+  const { doc, collection, setDoc, updateDoc, serverTimestamp } = F();
+  try {
+    if(editArisanMode && currentArisanId) {
+      await updateDoc(doc(db(),'arisan',currentArisanId), {nama,hadiah,iuran,cicilan,tgl,adminFee,warna});
+      showToast('Arisan diperbarui! ✓');
+    } else {
+      const ref = doc(collection(db(),'arisan'));
+      await setDoc(ref, {nama,hadiah,iuran,cicilan,tgl,adminFee,warna,jadwal:[],anggota:[],pembayaran:{},createdAt:serverTimestamp()});
+      showToast('Arisan baru berhasil dibuka! 🎉');
+    }
+    closeModal('modalNewArisan');
+  } catch(e) { console.error(e); showToast('Gagal menyimpan. Cek koneksi!'); }
+}
+
+async function hapusArisan() {
+  if(!requireOwner()||!currentArisanId) return;
+  if(!confirm('Hapus arisan ini beserta semua datanya?')) return;
+  const { doc, deleteDoc } = F();
+  try {
+    await deleteDoc(doc(db(),'arisan',currentArisanId));
+    backToDashboard();
+    showToast('Arisan dihapus!');
+  } catch(e) { showToast('Gagal hapus!'); }
+}
+
+// =========================================================
+// JADWAL TAB
+// =========================================================
+function renderJadwalTab() {
+  const el = document.getElementById('jadwalList');
+  if(!currentArisanData) { el.innerHTML='<div class="loading">⏳ Buka arisan dari Beranda dulu...</div>'; renderArisanPicker('jadwalPicker'); return; }
+  renderArisanPicker('jadwalPicker', 'jadwal');
+  const jadwal = (currentArisanData.jadwal||[]).slice().sort((a,b)=>a.urutan-b.urutan);
+  if(!jadwal.length) { el.innerHTML='<div class="empty">Belum ada jadwal. Tambah giliran!</div>'; return; }
+  el.innerHTML = jadwal.map(j => {
+    const lbl = j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Sekarang':'⏳ Menunggu';
+    return `<div class="jadwal-item ${j.status}" onclick="showDetailJadwal('${j.id}')">
+      <div class="jadwal-num">${j.urutan}</div>
       <div class="jadwal-info">
         <div class="jadwal-name">${j.nama||'(Belum diisi)'}</div>
-        <div class="jadwal-date">📅 ${j.bulan} • Tgl ${D.tgl}</div>
+        <div class="jadwal-date">📅 ${j.bulan||'-'} • Tgl ${currentArisanData.tgl||'?'}</div>
       </div>
       <div style="text-align:right;flex-shrink:0;">
         <div class="jadwal-status">${lbl}</div>
-        ${j.kunci?'<div style="color:var(--gold);font-size:10px;margin-top:3px;">🔒</div>':''}
+        ${j.kunci?'<div style="color:var(--rose);font-size:10px;margin-top:3px;">🔒</div>':''}
       </div>
     </div>`;
   }).join('');
 }
 
-function renderMembers(){
-  const el=document.getElementById('memberGrid');
-  if(!el)return;
-  el.innerHTML=D.anggota.map(a=>{
-    const col=gc(a.nama);
-    const jd=D.jadwal.find(j=>j.nama&&j.nama.toLowerCase()===a.nama.toLowerCase());
-    const badge=jd?(jd.status==='done'?'✓':jd.status==='current'?'🎯':''):'';
-    const bbg=jd?(jd.status==='done'?'var(--green)':jd.status==='current'?'var(--gold)':'transparent'):'transparent';
+function renderArisanPicker(elId, tab) {
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(allArisan.length <= 1 && currentArisanData) { el.style.display='none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = `<select onchange="switchArisanFromPicker(this.value,'${tab}')" style="width:100%;padding:12px 16px;border:2px solid var(--cream-dark);border-radius:14px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:#fff;outline:none;">
+    <option value="">— Pilih Arisan —</option>
+    ${allArisan.map(a=>`<option value="${a.id}" ${a.id===currentArisanId?'selected':''}>${a.nama} (${rp(a.hadiah)})</option>`).join('')}
+  </select>`;
+}
+
+function switchArisanFromPicker(id, tab) {
+  if(!id) return;
+  const a = allArisan.find(x=>x.id===id);
+  if(!a) return;
+  currentArisanId=id; currentArisanData=a;
+  if(tab==='jadwal') renderJadwalTab();
+  else if(tab==='anggota') renderAnggotaTab();
+  else if(tab==='bayar') renderBayarTab();
+}
+
+function openAddJadwal() {
+  if(!requireOwner()) return;
+  if(!currentArisanData) { showToast('Pilih arisan dulu!'); return; }
+  editJadwalId = null;
+  document.getElementById('mJadwalTitle').textContent='Tambah Giliran';
+  document.getElementById('inNama').value='';
+  document.getElementById('inBulan').value='';
+  document.getElementById('inStatus').value='waiting';
+  openModal('modalJadwal');
+}
+
+async function saveJadwal() {
+  if(!requireOwner()) return;
+  const nama = document.getElementById('inNama').value.trim();
+  const bulan = document.getElementById('inBulan').value.trim();
+  const status = document.getElementById('inStatus').value;
+  if(!bulan) { showToast('Masukkan bulan & tahun!'); return; }
+  const { doc, updateDoc } = F();
+  let jadwal = [...(currentArisanData.jadwal||[])];
+  if(editJadwalId) {
+    jadwal = jadwal.map(j => j.id===editJadwalId ? {...j,nama,bulan,status} : j);
+  } else {
+    const newId = 'j_'+Date.now();
+    jadwal.push({id:newId, urutan:jadwal.length+1, nama, bulan, status, kunci:false});
+  }
+  try {
+    await updateDoc(doc(db(),'arisan',currentArisanId),{jadwal});
+    closeModal('modalJadwal');
+    showToast('Giliran disimpan! ✓');
+  } catch(e) { showToast('Gagal simpan!'); }
+}
+
+function showDetailJadwal(jid) {
+  const j = (currentArisanData.jadwal||[]).find(x=>x.id===jid);
+  if(!j) return;
+  document.getElementById('detailNama').textContent=(j.nama||'Belum diisi')+' — Giliran ke-'+j.urutan;
+  document.getElementById('detailSubM').textContent=(j.bulan||'-')+' • Tanggal '+(currentArisanData.tgl||'?');
+  const adminBtns = isOwner() ? `
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <button onclick="ubahStatus('${jid}','done');closeModal('modalDetail')" style="flex:1;padding:12px;background:var(--green-light);color:var(--green);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">✓ Sudah Kena</button>
+      <button onclick="ubahStatus('${jid}','current');closeModal('modalDetail')" style="flex:1;padding:12px;background:#FFF5F8;color:var(--rose);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🎯 Sekarang</button>
+    </div>
+    <button onclick="editJadwal('${jid}')" style="width:100%;padding:12px;background:var(--cream);color:var(--dark);border:1px solid var(--cream-dark);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:8px;">✏️ Edit</button>
+    ${!j.kunci?`<button onclick="hapusJadwal('${jid}')" style="width:100%;padding:12px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🗑️ Hapus</button>`:''}
+  ` : `<div style="text-align:center;padding:14px;background:var(--rose-light);border-radius:14px;">
+    <div style="font-size:13px;color:var(--mauve);margin-bottom:10px;">🔒 Hanya Owner yang dapat mengubah data</div>
+    <button onclick="kirimRequest();closeModal('modalDetail')" style="padding:10px 18px;background:var(--dark);color:var(--rose-light);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">📧 Minta Izin Owner</button>
+  </div>`;
+  document.getElementById('detailBody').innerHTML=`
+    <div style="background:var(--cream);border-radius:14px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
+        <span style="font-size:13px;color:var(--text-muted);">Status</span>
+        <span style="font-size:13px;font-weight:600;color:${j.status==='done'?'var(--green)':j.status==='current'?'var(--rose)':'var(--text-muted)'};">${j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Giliran Sekarang':'⏳ Menunggu'}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
+        <span style="font-size:13px;color:var(--text-muted);">Hadiah</span>
+        <span style="font-size:13px;font-weight:700;color:var(--green);">${rp(currentArisanData.hadiah||0)}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:7px 0;">
+        <span style="font-size:13px;color:var(--text-muted);">Dikunci</span>
+        <span style="font-size:13px;">${j.kunci?'🔒 Ya':'🔓 Tidak'}</span>
+      </div>
+    </div>${adminBtns}`;
+  openModal('modalDetail');
+}
+
+async function ubahStatus(jid, status) {
+  if(!requireOwner()) return;
+  const jadwal = (currentArisanData.jadwal||[]).map(j=>j.id===jid?{...j,status}:j);
+  const { doc, updateDoc } = F();
+  await updateDoc(doc(db(),'arisan',currentArisanId),{jadwal});
+  showToast('Status diperbarui! ✓');
+}
+
+function editJadwal(jid) {
+  if(!requireOwner()) return;
+  closeModal('modalDetail');
+  const j = (currentArisanData.jadwal||[]).find(x=>x.id===jid);
+  editJadwalId = jid;
+  document.getElementById('mJadwalTitle').textContent='Edit Giliran';
+  document.getElementById('inNama').value=j.nama||'';
+  document.getElementById('inBulan').value=j.bulan||'';
+  document.getElementById('inStatus').value=j.status;
+  openModal('modalJadwal');
+}
+
+async function hapusJadwal(jid) {
+  if(!requireOwner()) return;
+  if(!confirm('Hapus giliran ini?')) return;
+  const jadwal = (currentArisanData.jadwal||[]).filter(j=>j.id!==jid);
+  const { doc, updateDoc } = F();
+  await updateDoc(doc(db(),'arisan',currentArisanId),{jadwal});
+  closeModal('modalDetail');
+  showToast('Giliran dihapus!');
+}
+
+// =========================================================
+// ANGGOTA TAB
+// =========================================================
+function renderAnggotaTab() {
+  const el = document.getElementById('memberGrid');
+  if(!currentArisanData) { el.innerHTML='<div class="loading" style="grid-column:1/-1;">⏳ Buka arisan dari Beranda dulu...</div>'; renderArisanPicker('anggotaPicker','anggota'); return; }
+  renderArisanPicker('anggotaPicker','anggota');
+  const anggota = currentArisanData.anggota||[];
+  const jadwal = currentArisanData.jadwal||[];
+  if(!anggota.length) { el.innerHTML='<div class="empty" style="grid-column:1/-1;">Belum ada anggota.</div>'; return; }
+  el.innerHTML = anggota.map(a => {
+    const col = gc(a.nama);
+    const jd = jadwal.find(j=>j.nama&&j.nama.toLowerCase()===a.nama.toLowerCase());
+    const badge = jd?(jd.status==='done'?'✓':jd.status==='current'?'🎯':''):'';
+    const bbg = jd?(jd.status==='done'?'var(--green)':jd.status==='current'?'var(--rose)':'transparent'):'transparent';
     return `<div class="member-card" onclick="showMemberDetail('${a.nama.replace(/'/g,"\\'")}')">
-      ${badge?`<div class="member-badge" style="background:${bbg};color:#fff;">${badge}</div>`:''}
+      ${badge?`<div class="member-badge-pos" style="background:${bbg};color:#fff;">${badge}</div>`:''}
       <div class="member-avatar" style="background:${col};">${ini(a.nama)}</div>
       <div class="member-name">${a.nama}</div>
-      <div class="member-giliran">${jd?'Giliran ke-'+jd.id:'Belum terjadwal'}</div>
-      <div style="font-size:11px;color:${jd?.status==='done'?'var(--green)':jd?.status==='current'?'var(--gold)':'var(--text-muted)'};margin-top:4px;font-weight:600;">
-        ${jd?(jd.status==='done'?'✓ Sudah':jd.status==='current'?'🎯 Giliran':jd.bulan):''}
+      <div class="member-sub">${jd?'Giliran ke-'+jd.urutan:'Belum terjadwal'}</div>
+      <div style="font-size:11px;color:${jd?.status==='done'?'var(--green)':jd?.status==='current'?'var(--rose)':'var(--text-muted)'};margin-top:4px;font-weight:600;">
+        ${jd?(jd.status==='done'?'✓ Sudah':jd.status==='current'?'🎯 Giliran':jd.bulan||'-'):''}
       </div>
     </div>`;
   }).join('');
 }
 
-function renderPayments(){
-  const el=document.getElementById('paymentList');
-  if(!el)return;
-  const bln=curMonth();
-  document.getElementById('paymentMonth').textContent=bln;
-  if(!D.pembayaran[bln])D.pembayaran[bln]={};
-  el.innerHTML=D.anggota.map(a=>{
-    const paid=D.pembayaran[bln][a.nama];
-    const col=gc(a.nama);
-    const myName=session.nama.toLowerCase()===a.nama.toLowerCase();
-    const canTap=isAdmin()||myName;
-    const isSelf=!isAdmin()&&myName;
+function openAddAnggota() {
+  if(!requireOwner()) return;
+  if(!currentArisanData) { showToast('Pilih arisan dulu!'); return; }
+  document.getElementById('inAnggotaNama').value='';
+  document.getElementById('inAnggotaHp').value='';
+  openModal('modalAnggota');
+}
+
+async function saveAnggota() {
+  if(!requireOwner()) return;
+  const nama = document.getElementById('inAnggotaNama').value.trim();
+  const hp = document.getElementById('inAnggotaHp').value.trim();
+  if(!nama) { showToast('Masukkan nama!'); return; }
+  const anggota = [...(currentArisanData.anggota||[]), {id:'a_'+Date.now(),nama,hp}];
+  const { doc, updateDoc } = F();
+  try {
+    await updateDoc(doc(db(),'arisan',currentArisanId),{anggota});
+    closeModal('modalAnggota');
+    showToast('Anggota ditambahkan! 🎉');
+  } catch(e) { showToast('Gagal simpan!'); }
+}
+
+function showMemberDetail(nama) {
+  const a = (currentArisanData.anggota||[]).find(x=>x.nama===nama);
+  const j = (currentArisanData.jadwal||[]).find(x=>x.nama&&x.nama.toLowerCase()===nama.toLowerCase());
+  const col = gc(nama);
+  document.getElementById('detailNama').textContent = nama;
+  document.getElementById('detailSubM').textContent = j?j.bulan+' • Giliran ke-'+j.urutan:'Belum terjadwal';
+  document.getElementById('detailBody').innerHTML=`
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="width:68px;height:68px;border-radius:50%;background:${col};display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin:0 auto 10px;">${ini(nama)}</div>
+      ${a?.hp?`<div style="font-size:13px;color:var(--text-muted);">📱 ${a.hp}</div>`:''}
+    </div>
+    <div style="background:var(--cream);border-radius:14px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
+        <span style="font-size:13px;color:var(--text-muted);">Giliran ke-</span>
+        <span style="font-size:13px;font-weight:600;">${j?j.urutan:'Belum terjadwal'}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:7px 0;">
+        <span style="font-size:13px;color:var(--text-muted);">Status</span>
+        <span style="font-size:13px;font-weight:600;color:${j?.status==='done'?'var(--green)':j?.status==='current'?'var(--rose)':'var(--text-muted)'};">${j?(j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Giliran Sekarang':'⏳ Menunggu'):'-'}</span>
+      </div>
+    </div>
+    ${isOwner()?`<button onclick="hapusAnggota('${nama.replace(/'/g,"\\'")}');closeModal('modalDetail')" style="width:100%;padding:12px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🗑️ Hapus Anggota</button>`:''}`;
+  openModal('modalDetail');
+}
+
+async function hapusAnggota(nama) {
+  if(!requireOwner()) return;
+  const anggota = (currentArisanData.anggota||[]).filter(a=>a.nama!==nama);
+  const { doc, updateDoc } = F();
+  await updateDoc(doc(db(),'arisan',currentArisanId),{anggota});
+  showToast('Anggota dihapus!');
+}
+
+// =========================================================
+// BAYAR TAB
+// =========================================================
+function renderBayarTab() {
+  const el = document.getElementById('paymentList');
+  if(!currentArisanData) { el.innerHTML='<div class="loading" style="padding:20px;text-align:center;">⏳ Buka arisan dari Beranda dulu...</div>'; renderArisanPicker('bayarPicker','bayar'); return; }
+  renderArisanPicker('bayarPicker','bayar');
+  const bln = curMonth();
+  document.getElementById('paymentMonth').textContent = bln;
+  const pembayaran = currentArisanData.pembayaran||{};
+  const bayarBln = pembayaran[bln]||{};
+  const anggota = currentArisanData.anggota||[];
+  if(!anggota.length) { el.innerHTML='<div class="loading" style="padding:20px;text-align:center;">Belum ada anggota.</div>'; return; }
+  el.innerHTML = anggota.map(a => {
+    const paid = bayarBln[a.nama];
+    const col = gc(a.nama);
+    const myName = session.nama.toLowerCase()===a.nama.toLowerCase();
+    const canTap = isOwner()||myName;
     return `<div class="payment-row" onclick="${canTap?`openBayar('${a.nama.replace(/'/g,"\\'")}')`:''}" style="${!canTap?'opacity:.55;cursor:not-allowed;':''}">
       <div class="payment-avatar" style="background:${col};">${ini(a.nama)}</div>
       <div style="flex:1;">
-        <div style="font-size:14px;font-weight:500;">${a.nama}${isSelf?' <span style="font-size:11px;background:var(--blue-light);color:var(--blue);padding:2px 8px;border-radius:20px;">Kamu</span>':''}</div>
+        <div style="font-size:14px;font-weight:500;">${a.nama}${myName&&!isOwner()?' <span style="font-size:11px;background:var(--rose-light);color:var(--rose);padding:2px 8px;border-radius:20px;">Kamu</span>':''}</div>
         <div style="font-size:11px;color:var(--text-muted);margin-top:1px;">${paid?paid.metode+' • '+paid.tgl:'Belum bayar'}</div>
       </div>
       <div style="text-align:right;">
@@ -662,200 +1326,61 @@ function renderPayments(){
   }).join('');
 }
 
-// ===== MODALS =====
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
-
-function openAddJadwal(){
-  if(!requireAdmin())return;
-  D.editJadwalId=null;
-  document.getElementById('mJadwalTitle').textContent='Tambah Giliran';
-  document.getElementById('inputNama').value='';
-  document.getElementById('inputBulan').value='';
-  document.getElementById('inputStatus').value='waiting';
-  openModal('modalJadwal');
-}
-
-function saveJadwal(){
-  if(!requireAdmin())return;
-  const nama=document.getElementById('inputNama').value.trim();
-  const bulan=document.getElementById('inputBulan').value.trim();
-  const status=document.getElementById('inputStatus').value;
-  if(!bulan){showToast('Masukkan bulan & tahun!');return;}
-  if(D.editJadwalId){
-    const j=D.jadwal.find(x=>x.id===D.editJadwalId);
-    if(j){j.nama=nama;j.bulan=bulan;j.status=status;}
-  } else {
-    D.jadwal.push({id:D.nextId++,nama,bulan,status,kunci:false});
+function openBayar(nama) {
+  if(!isOwner()&&session.nama.toLowerCase()!==nama.toLowerCase()){
+    showToast('Kamu hanya bisa tandai bayar namamu sendiri!'); return;
   }
-  closeModal('modalJadwal');save();renderAll();
-  showToast('✓ Giliran berhasil disimpan!');
-}
-
-function showDetailJadwal(id){
-  const j=D.jadwal.find(x=>x.id===id);
-  if(!j)return;
-  document.getElementById('detailNama').textContent=(j.nama||'Belum diisi')+' — Giliran ke-'+j.id;
-  document.getElementById('detailSub').textContent=j.bulan+' • Tanggal '+D.tgl;
-  const adminBtns=isAdmin()?`
-    <div style="display:flex;gap:8px;margin-bottom:8px;">
-      <button onclick="ubahStatus(${id},'done');closeModal('modalDetail')" style="flex:1;padding:12px;background:var(--green-light);color:var(--green);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">✓ Sudah Kena</button>
-      <button onclick="ubahStatus(${id},'current');closeModal('modalDetail')" style="flex:1;padding:12px;background:#FFF9EC;color:var(--gold);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🎯 Sekarang</button>
-    </div>
-    <button onclick="editJadwal(${id})" style="width:100%;padding:12px;background:var(--cream);color:var(--dark);border:1px solid var(--cream-dark);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:8px;">✏️ Edit Giliran</button>
-    ${!j.kunci?`<button onclick="hapusJadwal(${id})" style="width:100%;padding:12px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🗑️ Hapus</button>`:''}`
-  :`<div style="text-align:center;padding:14px;background:var(--cream);border-radius:14px;">
-    <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">🔒 Hanya Admin yang dapat mengubah data</div>
-    <button onclick="kirimRequest();closeModal('modalDetail')" style="padding:10px 18px;background:var(--dark);color:var(--gold-light);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">📧 Minta Izin Admin</button>
-  </div>`;
-  document.getElementById('detailBody').innerHTML=`
-    <div style="background:var(--cream);border-radius:14px;padding:16px;margin-bottom:14px;">
-      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
-        <span style="font-size:13px;color:var(--text-muted);">Status</span>
-        <span style="font-size:13px;font-weight:600;color:${j.status==='done'?'var(--green)':j.status==='current'?'var(--gold)':'var(--text-muted)'};">${j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Giliran Sekarang':'⏳ Menunggu'}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
-        <span style="font-size:13px;color:var(--text-muted);">Hadiah</span>
-        <span style="font-size:13px;font-weight:700;color:var(--green);">${rp(D.prize)}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:7px 0;">
-        <span style="font-size:13px;color:var(--text-muted);">Kunci</span>
-        <span style="font-size:13px;">${j.kunci?'🔒 Terkunci':'🔓 Bebas'}</span>
-      </div>
-    </div>${adminBtns}`;
-  openModal('modalDetail');
-}
-
-function ubahStatus(id,status){
-  if(!requireAdmin())return;
-  const j=D.jadwal.find(x=>x.id===id);
-  if(j){j.status=status;save();renderAll();showToast('Status diperbarui! ✓');}
-}
-
-function editJadwal(id){
-  if(!requireAdmin())return;
-  closeModal('modalDetail');
-  const j=D.jadwal.find(x=>x.id===id);
-  D.editJadwalId=id;
-  document.getElementById('mJadwalTitle').textContent='Edit Giliran';
-  document.getElementById('inputNama').value=j.nama||'';
-  document.getElementById('inputBulan').value=j.bulan||'';
-  document.getElementById('inputStatus').value=j.status;
-  openModal('modalJadwal');
-}
-
-function hapusJadwal(id){
-  if(!requireAdmin())return;
-  if(!confirm('Hapus giliran ini?'))return;
-  D.jadwal=D.jadwal.filter(x=>x.id!==id);
-  closeModal('modalDetail');save();renderAll();
-  showToast('Giliran dihapus!');
-}
-
-function openAddAnggota(){
-  if(!requireAdmin())return;
-  document.getElementById('inputAnggotaNama').value='';
-  document.getElementById('inputAnggotaHp').value='';
-  openModal('modalAnggota');
-}
-
-function saveAnggota(){
-  if(!requireAdmin())return;
-  const nama=document.getElementById('inputAnggotaNama').value.trim();
-  const hp=document.getElementById('inputAnggotaHp').value.trim();
-  if(!nama){showToast('Masukkan nama!');return;}
-  D.anggota.push({id:Date.now(),nama,hp});
-  closeModal('modalAnggota');save();renderAll();
-  showToast('Anggota ditambahkan! 🎉');
-}
-
-function showMemberDetail(nama){
-  const a=D.anggota.find(x=>x.nama===nama);
-  const j=D.jadwal.find(x=>x.nama&&x.nama.toLowerCase()===nama.toLowerCase());
-  const col=gc(nama);
-  document.getElementById('detailNama').textContent=nama;
-  document.getElementById('detailSub').textContent=j?j.bulan+' • Giliran ke-'+j.id:'Belum terjadwal';
-  document.getElementById('detailBody').innerHTML=`
-    <div style="text-align:center;margin-bottom:20px;">
-      <div style="width:70px;height:70px;border-radius:50%;background:${col};display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;margin:0 auto 10px;">${ini(nama)}</div>
-      ${a?.hp?`<div style="font-size:13px;color:var(--text-muted);">📱 ${a.hp}</div>`:''}
-    </div>
-    <div style="background:var(--cream);border-radius:14px;padding:16px;margin-bottom:14px;">
-      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-dark);">
-        <span style="font-size:13px;color:var(--text-muted);">Giliran ke-</span>
-        <span style="font-size:13px;font-weight:600;">${j?j.id:'Belum terjadwal'}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:7px 0;">
-        <span style="font-size:13px;color:var(--text-muted);">Status</span>
-        <span style="font-size:13px;font-weight:600;color:${j?.status==='done'?'var(--green)':j?.status==='current'?'var(--gold)':'var(--text-muted)'};">${j?(j.status==='done'?'✓ Sudah Kena':j.status==='current'?'🎯 Giliran Sekarang':'⏳ Menunggu'):'-'}</span>
-      </div>
-    </div>
-    ${isAdmin()?`<button onclick="hapusAnggota('${nama.replace(/'/g,"\\'")}');closeModal('modalDetail')" style="width:100%;padding:12px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;">🗑️ Hapus Anggota</button>`:''}`;
-  openModal('modalDetail');
-}
-
-function hapusAnggota(nama){
-  if(!requireAdmin())return;
-  D.anggota=D.anggota.filter(a=>a.nama!==nama);
-  save();renderAll();showToast('Anggota dihapus!');
-}
-
-function openBayar(nama){
-  if(!isAdmin()&&session.nama.toLowerCase()!==nama.toLowerCase()){
-    showToast('Kamu hanya bisa tandai bayar namamu sendiri!');return;
-  }
-  D.editBayarNama=nama;
+  editBayarNama = nama;
   document.getElementById('mBayarSub').textContent='Konfirmasi iuran '+nama+' — '+curMonth();
-  document.getElementById('inputJumlah').value=D.iuran;
+  document.getElementById('inJumlah').value=currentArisanData?.iuran||500000;
   openModal('modalBayar');
 }
 
-function konfirmasiBayar(){
-  const nama=D.editBayarNama;
-  if(!isAdmin()&&session.nama.toLowerCase()!==nama.toLowerCase()){showToast('Tidak diizinkan!');return;}
-  const jumlah=parseInt(document.getElementById('inputJumlah').value)||D.iuran;
-  const metode=document.getElementById('inputMetode').value;
-  const bln=curMonth();
-  if(!D.pembayaran[bln])D.pembayaran[bln]={};
-  const now=new Date();
-  D.pembayaran[bln][nama]={jumlah,metode,tgl:now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear()};
-  closeModal('modalBayar');save();renderAll();
-  showToast(nama+' berhasil dicatat lunas! 💚');
+async function konfirmasiBayar() {
+  const nama = editBayarNama;
+  if(!isOwner()&&session.nama.toLowerCase()!==nama.toLowerCase()){showToast('Tidak diizinkan!');return;}
+  const jumlah = parseInt(document.getElementById('inJumlah').value)||0;
+  const metode = document.getElementById('inMetode').value;
+  const bln = curMonth();
+  const now = new Date();
+  const pembayaran = {...(currentArisanData.pembayaran||{})};
+  if(!pembayaran[bln]) pembayaran[bln]={};
+  pembayaran[bln][nama] = {jumlah, metode, tgl:now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear()};
+  const { doc, updateDoc } = F();
+  try {
+    await updateDoc(doc(db(),'arisan',currentArisanId),{pembayaran});
+    closeModal('modalBayar');
+    showToast(nama+' berhasil dicatat lunas! 💚');
+  } catch(e) { showToast('Gagal menyimpan!'); }
 }
 
-function openQuickAction(){
-  if(!requireAdmin())return;
-  const a=document.querySelector('.tab-content.active');
-  if(a?.id==='tab-jadwal')openAddJadwal();
-  else if(a?.id==='tab-anggota')openAddAnggota();
-  else openAddJadwal();
+// =========================================================
+// REQUEST IZIN
+// =========================================================
+function kirimRequest() {
+  const sub = encodeURIComponent('[Arisan Chersie] Permintaan Izin Edit Data Arisan');
+  const body = encodeURIComponent(`Halo Owner Chersie,\n\nSaya ${session.nama} ingin meminta izin akses edit untuk website Arisan Chersie.\n\nMohon berikan password admin kepada saya.\n\nTerima kasih!`);
+  window.open(`mailto:hendri78gusiin@gmail.com?subject=${sub}&body=${body}`,'_blank');
+  showToast('📧 Membuka email ke Owner...');
 }
 
-function kirimRequest(){
-  const sub=encodeURIComponent('[ArisanKu] Permintaan Izin Edit Data Arisan');
-  const body=encodeURIComponent(`Halo Admin Hendri,\n\nSaya ${session.nama} ingin meminta izin akses edit untuk website arisan.\n\nMohon berikan password atau akses kepada saya.\n\nTerima kasih!`);
-  window.open(`mailto:${ADMIN_EMAIL}?subject=${sub}&body=${body}`,'_blank');
-  showToast('📧 Membuka email ke Admin...');
-}
-
-let toastTimer;
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-document.querySelectorAll('.modal-overlay').forEach(o=>{
-  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');});
-});
-
+// =========================================================
 // INIT
-load();
-try{
-  const ss=JSON.parse(sessionStorage.getItem('ak_sess')||'null');
-  if(ss&&ss.role){session=ss;boot();}
-}catch(e){}
+// =========================================================
+(async function init() {
+  // Cek apakah ada saved session
+  try {
+    const ss = JSON.parse(sessionStorage.getItem('ac_sess')||'null');
+    if(ss && ss.role) {
+      session = ss;
+      document.getElementById('setupScreen').style.display='none';
+      bootApp();
+      return;
+    }
+  } catch(e) {}
+  // Show setup
+  document.getElementById('setupScreen').style.display='flex';
+})();
 </script>
 </body>
 </html>
